@@ -43,3 +43,16 @@ export {
   serializeVehicleFilters,
   updateVehicleFilters,
 } from "@features/vehicles/index.vehicles";
+
+export type {
+  InquiriesApi,
+  InquiryContact,
+  InquiryCustomer,
+  InquirySubmission,
+  InquiryLimits,
+  EnabledInquiryForm,
+  InquiryForm,
+  InquiryReceipt,
+  InquirySubmitOptions,
+} from "@features/inquiries/index.inquiries";
+export { validateInquirySubmission } from "@features/inquiries/index.inquiries";

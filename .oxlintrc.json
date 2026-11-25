@@ -172,6 +172,34 @@
           }
         ]
       }
+    },
+    {
+      "files": ["src/features/inquiries/**/*.ts"],
+      "rules": {
+        "eslint/no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "^\\.{1,2}/",
+                "message": "Use the owning @shared/* or @features/* source alias."
+              },
+              {
+                "regex": "^(node:|bun(:|$)|react($|/)|react-dom($|/))",
+                "message": "The core SDK uses browser APIs and stays framework-independent."
+              },
+              {
+                "regex": "^(@client(/|$)|@sdk$)",
+                "message": "Features must not import the SDK composition entry point."
+              },
+              {
+                "regex": "^@features/(?!inquiries/)[^/]+/(?!index\\.[^/]+$)",
+                "message": "Use another feature through its explicit index.<feature> entry point."
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

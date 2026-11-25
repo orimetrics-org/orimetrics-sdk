@@ -75,8 +75,8 @@ test("ships only the declared distribution and package documentation", async () 
 test("declarations resolve without repository aliases or Bun ambient types", async () => {
   await writeFile(
     join(consumerDirectory, "consumer.ts"),
-    `import type { OrimetricsOptions, OrganizationProfile, VehiclePage, VehicleListing } from "@orimetrics/sdk";
-import { createOrimetricsClient, OrimetricsError } from "@orimetrics/sdk";
+    `import type { OrimetricsOptions, OrganizationProfile, VehiclePage, VehicleListing, InquiryForm, InquirySubmission, InquiryReceipt } from "@orimetrics/sdk";
+import { createOrimetricsClient, OrimetricsError, validateInquirySubmission } from "@orimetrics/sdk";
 const options: OrimetricsOptions = {
   baseUrl: "https://api.example.test",
   organizationSlug: "example",
@@ -94,6 +94,14 @@ const dealer: Promise<OrganizationProfile> = client.dealerships.getProfile("nort
 // @ts-expect-error Money stays a decimal string.
 client.vehicles.list({ priceMin: 10 });
 void [page, listing, image, dealer];
+const inquiryForm: Promise<InquiryForm> = client.inquiries.getForm("listing");
+const submission: InquirySubmission = { customer: { displayName: "Visitor", contacts: [{ kind: "email", value: "visitor@example.com" }] }, privacyVersion: "v1", privacyAcknowledged: true, turnstileToken: "token" };
+const receipt: Promise<InquiryReceipt> = client.inquiries.submit("listing", submission, { idempotencyKey: "97c18d53-60b4-4b16-aad1-84cc66bf4df1" });
+// @ts-expect-error Caller must supply an operation key.
+client.inquiries.submit("listing", submission);
+// @ts-expect-error Consent must be explicitly true.
+const unacknowledged: InquirySubmission = { ...submission, privacyAcknowledged: false };
+void [inquiryForm, receipt, unacknowledged, validateInquirySubmission];
 const profile: Promise<OrganizationProfile> = client.organization.getProfile({ timeoutMs: 5000 });
 // @ts-expect-error There is no arbitrary-route API.
 client.GET("/private");
@@ -128,7 +136,7 @@ test("ESM entry bundles for a browser without source aliases", async () => {
 
   await writeFile(
     entry,
-    `import { createOrimetricsClient, OrimetricsError, parseVehicleFilters, serializeVehicleFilters, updateVehicleFilters } from "@orimetrics/sdk";
+    `import { createOrimetricsClient, OrimetricsError, parseVehicleFilters, serializeVehicleFilters, updateVehicleFilters, validateInquirySubmission } from "@orimetrics/sdk";
 let calls = 0;
 const client = createOrimetricsClient({ baseUrl: "https://example.test", organizationSlug: "demo", fetch: async (request, init) => {
   calls++;
@@ -145,7 +153,21 @@ if (!client.vehicles.photoUrl("listing", "cover", "card").endsWith("/vehicles/li
 if (!client.dealerships.logoUrl("north").endsWith("/d/north/branding/logo")) throw new Error("Logo URL failed");
 try { await client.vehicles.list(filters); throw new Error("Expected failure"); }
 catch (error) { if (!(error instanceof OrimetricsError) || error.status !== 503) throw error; }
-if (calls !== 2) throw new Error("Unexpected vehicle retry");`,
+if (calls !== 2) throw new Error("Unexpected vehicle retry");
+const form = { enabled: true, privacyNotice: { url: "https://example.test/privacy", version: "v1" }, turnstile: { siteKey: "site-key", action: "inquiry" }, limits: { nameMaxCharacters: 100, messageMaxCharacters: 2000, maxPhones: 1, maxEmails: 1 } };
+const submission = { customer: { displayName: "Visitor", contacts: [{ kind: "email", value: "visitor@example.com" }] }, privacyVersion: "v1", privacyAcknowledged: true, turnstileToken: "token" };
+let inquiryCalls = 0;
+const inquiries = createOrimetricsClient({ baseUrl: "https://example.test", organizationSlug: "demo", fetch: async (request, init) => {
+  inquiryCalls++;
+  if (init.credentials !== "omit") throw new Error("Inquiry credentials leaked");
+  if (request.method === "GET") return Response.json(form);
+  if (request.headers.get("Idempotency-Key") !== "97c18d53-60b4-4b16-aad1-84cc66bf4df1") throw new Error("Key changed");
+  if (JSON.stringify(await request.json()) !== JSON.stringify(submission)) throw new Error("Payload changed");
+  return Response.json({ accepted: true }, { status: 202 });
+} }).inquiries;
+validateInquirySubmission(submission, await inquiries.getForm("listing"));
+const receipt = await inquiries.submit("listing", submission, { idempotencyKey: "97c18d53-60b4-4b16-aad1-84cc66bf4df1" });
+if (receipt.accepted !== true || inquiryCalls !== 2) throw new Error("Inquiry workflow failed");`,
   );
 
   const result = await Bun.build({ entrypoints: [entry], target: "browser", format: "esm" });

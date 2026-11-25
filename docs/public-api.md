@@ -5,7 +5,8 @@ can become a skeleton for client websites. React helpers are deferred until the 
 
 Client creation, vehicle browsing and organization/dealership profile and branding helpers are
 implemented; see [transport.md](transport.md) and [vehicle-browsing.md](vehicle-browsing.md).
-Inquiry and appraisal names below describe upcoming milestones.
+Vehicle inquiries are implemented; see [vehicle-inquiries.md](vehicle-inquiries.md). Appraisal names
+below describe the upcoming milestone.
 Consumer examples should validate this interface before a stable release.
 
 ## Client and ownership
@@ -54,5 +55,5 @@ operations omit ERP cookies and credentials. Core code has no persistent cache o
 
 ## Next milestone
 
-Vehicle browsing and public profile/branding operations are implemented. Next, create the minimalist demo website using the packed SDK. Inquiry/appraisal workflows and optional
+Vehicle browsing and public profile/branding operations are implemented. Next, create the minimalist demo website using the packed SDK. Appraisal workflows and optional
 React helpers remain later milestones.

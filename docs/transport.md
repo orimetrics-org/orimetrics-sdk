@@ -1,8 +1,8 @@
 # Client and transport
 
 The package now exports `createOrimetricsClient`, `OrimetricsError`, configuration/request types, and
-public organization profile types. `organization.getProfile()` is the first implemented operation;
-vehicle browsing, inquiries and appraisals will use the same internal transport in their milestones.
+public domain types. Organization/dealership profiles, vehicle browsing and vehicle inquiries use
+the shared internal transport. Appraisal operations will use it in their milestone.
 
 ```ts
 import { createOrimetricsClient, OrimetricsError } from "@orimetrics/sdk";

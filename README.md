@@ -36,7 +36,8 @@ remain mandatory and separate from emission.
 
 Client, transport, vehicle browsing, and public organization/dealership profiles and branding URL
 helpers are implemented. The public OpenAPI snapshot and generated transport types are pinned and
-verified in CI. Inquiry and appraisal APIs are next; React helpers remain deferred.
+verified in CI. Vehicle inquiries support form configuration and explicit submissions with stable
+idempotency keys. Appraisal APIs are next; React helpers remain deferred.
 
 ```ts
 import { createOrimetricsClient } from "@orimetrics/sdk";
@@ -55,6 +56,7 @@ if (listing) {
 }
 ```
 
+See [vehicle inquiries](docs/vehicle-inquiries.md) for consent, form limits and submission retries.
 See [vehicle browsing](docs/vehicle-browsing.md) for filters, pagination, images and branding.
 See [client and transport](docs/transport.md) for configuration, cancellation, errors, credential rules,
 custom fetch adapters and the implemented API. Construction performs no network requests.
