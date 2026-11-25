@@ -1,0 +1,93 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "oxc", "import"],
+  "categories": {
+    "correctness": "error"
+  },
+  "ignorePatterns": ["node_modules/", "dist/", "coverage/", ".husky/_/"],
+  "rules": {
+    "eslint/curly": ["error", "all"],
+    "eslint/eqeqeq": ["error", "always"],
+    "eslint/no-debugger": "error",
+    "eslint/no-nested-ternary": "error",
+    "eslint/no-var": "error",
+    "eslint/prefer-const": "error",
+    "typescript/consistent-type-imports": "error",
+    "typescript/no-explicit-any": "error",
+    "typescript/no-non-null-assertion": "error"
+  },
+  "overrides": [
+    {
+      "files": ["src/**/*.ts"],
+      "env": {
+        "browser": true,
+        "node": false
+      },
+      "rules": {
+        "eslint/no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "^\\.{1,2}/",
+                "message": "Use the owning @shared/* or @features/* source alias."
+              },
+              {
+                "regex": "^(node:|bun(:|$)|react($|/)|react-dom($|/))",
+                "message": "The core SDK uses browser APIs and stays framework-independent."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/shared/**/*.ts"],
+      "rules": {
+        "eslint/no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "^\\.{1,2}/",
+                "message": "Use the owning @shared/* or @features/* source alias."
+              },
+              {
+                "regex": "^(node:|bun(:|$)|react($|/)|react-dom($|/))",
+                "message": "The core SDK uses browser APIs and stays framework-independent."
+              },
+              {
+                "regex": "^(@features(/|$)|@sdk$)",
+                "message": "Shared infrastructure must not import features or the SDK entry point."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/features/**/*.ts"],
+      "rules": {
+        "eslint/no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "^\\.{1,2}/",
+                "message": "Use the owning @shared/* or @features/* source alias."
+              },
+              {
+                "regex": "^(node:|bun(:|$)|react($|/)|react-dom($|/))",
+                "message": "The core SDK uses browser APIs and stays framework-independent."
+              },
+              {
+                "regex": "^@sdk$",
+                "message": "Features must not import the SDK composition entry point."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
