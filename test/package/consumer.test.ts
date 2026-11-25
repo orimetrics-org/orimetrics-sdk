@@ -75,7 +75,7 @@ test("ships only the declared distribution and package documentation", async () 
 test("declarations resolve without repository aliases or Bun ambient types", async () => {
   await writeFile(
     join(consumerDirectory, "consumer.ts"),
-    `import type { OrimetricsOptions, OrganizationProfile } from "@orimetrics/sdk";
+    `import type { OrimetricsOptions, OrganizationProfile, VehiclePage, VehicleListing } from "@orimetrics/sdk";
 import { createOrimetricsClient, OrimetricsError } from "@orimetrics/sdk";
 const options: OrimetricsOptions = {
   baseUrl: "https://api.example.test",
@@ -87,6 +87,13 @@ const incomplete: OrimetricsOptions = { baseUrl: "https://api.example.test" };
 // @ts-expect-error a transport must be a fetch-compatible function.
 const invalidFetch: OrimetricsOptions = { ...options, fetch: "invalid" };
 const client = createOrimetricsClient(options);
+const page: Promise<VehiclePage> = client.vehicles.list({ brand: ["toyota"], priceMin: "1.00" }, { timeoutMs: 5000 });
+const listing: Promise<VehicleListing> = client.vehicles.get("listing");
+const image: string = client.vehicles.photoUrl("listing", "photo", "card");
+const dealer: Promise<OrganizationProfile> = client.dealerships.getProfile("north");
+// @ts-expect-error Money stays a decimal string.
+client.vehicles.list({ priceMin: 10 });
+void [page, listing, image, dealer];
 const profile: Promise<OrganizationProfile> = client.organization.getProfile({ timeoutMs: 5000 });
 // @ts-expect-error There is no arbitrary-route API.
 client.GET("/private");
@@ -121,7 +128,7 @@ test("ESM entry bundles for a browser without source aliases", async () => {
 
   await writeFile(
     entry,
-    `import { createOrimetricsClient, OrimetricsError } from "@orimetrics/sdk";
+    `import { createOrimetricsClient, OrimetricsError, parseVehicleFilters, serializeVehicleFilters, updateVehicleFilters } from "@orimetrics/sdk";
 let calls = 0;
 const client = createOrimetricsClient({ baseUrl: "https://example.test", organizationSlug: "demo", fetch: async (request, init) => {
   calls++;
@@ -131,7 +138,14 @@ const client = createOrimetricsClient({ baseUrl: "https://example.test", organiz
 if (calls !== 0) throw new Error("Construction performed a request");
 try { await client.organization.getProfile(); throw new Error("Expected failure"); }
 catch (error) { if (!(error instanceof OrimetricsError) || error.kind !== "http" || error.status !== 503) throw error; }
-if (calls !== 1) throw new Error("Unexpected retry");`,
+if (calls !== 1) throw new Error("Unexpected retry");
+const filters = updateVehicleFilters(parseVehicleFilters("brand=toyota&offset=25"), { city: ["quito"] });
+if (filters.offset !== 0 || !serializeVehicleFilters(filters).includes("brand=toyota")) throw new Error("Filter exports failed");
+if (!client.vehicles.photoUrl("listing", "cover", "card").endsWith("/vehicles/listing/photos/cover?variant=card")) throw new Error("Photo URL failed");
+if (!client.dealerships.logoUrl("north").endsWith("/d/north/branding/logo")) throw new Error("Logo URL failed");
+try { await client.vehicles.list(filters); throw new Error("Expected failure"); }
+catch (error) { if (!(error instanceof OrimetricsError) || error.status !== 503) throw error; }
+if (calls !== 2) throw new Error("Unexpected vehicle retry");`,
   );
 
   const result = await Bun.build({ entrypoints: [entry], target: "browser", format: "esm" });

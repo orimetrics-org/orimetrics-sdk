@@ -34,9 +34,9 @@ remain mandatory and separate from emission.
 
 ## Current status
 
-Client and transport are implemented, with `organization.getProfile()` as the first real operation.
-The public OpenAPI snapshot and generated transport types are pinned and verified in CI. Vehicle,
-inquiry and appraisal APIs are next; React helpers remain deferred until the core is complete.
+Client, transport, vehicle browsing, and public organization/dealership profiles and branding URL
+helpers are implemented. The public OpenAPI snapshot and generated transport types are pinned and
+verified in CI. Inquiry and appraisal APIs are next; React helpers remain deferred.
 
 ```ts
 import { createOrimetricsClient } from "@orimetrics/sdk";
@@ -47,8 +47,15 @@ const client = createOrimetricsClient({
 });
 
 const profile = await client.organization.getProfile({ timeoutMs: 5_000 });
+const page = await client.vehicles.list({ brand: ["toyota"], sort: "price_asc" });
+const listing = page.listings[0];
+
+if (listing) {
+  const detail = await client.vehicles.get(listing.slug);
+}
 ```
 
+See [vehicle browsing](docs/vehicle-browsing.md) for filters, pagination, images and branding.
 See [client and transport](docs/transport.md) for configuration, cancellation, errors, credential rules,
 custom fetch adapters and the implemented API. Construction performs no network requests.
 

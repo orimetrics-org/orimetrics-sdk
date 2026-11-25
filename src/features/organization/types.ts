@@ -50,6 +50,15 @@ export interface OrganizationProfileOptions extends RequestOptions {
   readonly offset?: number;
 }
 
+export interface DealershipsApi {
+  readonly getProfile: (
+    dealershipSlug: string,
+    options?: RequestOptions,
+  ) => Promise<OrganizationProfile>;
+  readonly logoUrl: (dealershipSlug: string) => string;
+}
+
 export interface OrganizationApi {
+  readonly logoUrl: () => string;
   readonly getProfile: (options?: OrganizationProfileOptions) => Promise<OrganizationProfile>;
 }

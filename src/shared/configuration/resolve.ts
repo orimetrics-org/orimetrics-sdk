@@ -1,5 +1,7 @@
 import type { OrimetricsOptions, ResolvedOptions } from "@shared/configuration/options";
 
+import { validateSlug } from "@shared/configuration/urls";
+
 export const DEFAULT_TIMEOUT_MS = 15_000 as const;
 
 export const validateTimeout = (timeoutMs: number): number => {
@@ -24,18 +26,7 @@ export const resolveOptions = (options: OrimetricsOptions): ResolvedOptions => {
     throw new TypeError("baseUrl must be an HTTP(S) URL without credentials, query or fragment.");
   }
 
-  if (
-    typeof slug !== "string" ||
-    !slug ||
-    slug === "." ||
-    slug === ".." ||
-    /[\s/\\?#%]/u.test(slug) ||
-    Array.from(slug).some(
-      (character) => character.charCodeAt(0) < 32 || character.charCodeAt(0) === 127,
-    )
-  ) {
-    throw new TypeError("organizationSlug must be a nonempty URL path segment.");
-  }
+  validateSlug(slug, "organizationSlug");
 
   if (options.fetch !== undefined && typeof options.fetch !== "function") {
     throw new TypeError("fetch must be a function.");

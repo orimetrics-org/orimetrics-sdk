@@ -1,9 +1,14 @@
-import type { OrganizationApi, OrganizationProfileOptions } from "@features/organization/types";
+import type { ResolvedOptions } from "@shared/configuration/options";
 import type { Transport } from "@shared/api/transport";
+
+import type * as t from "@features/organization/types";
 
 import { decodeProfile } from "@features/organization/profile";
 
+import { publicBaseUrl, validateSlug } from "@shared/configuration/urls";
+
 export type {
+  DealershipsApi,
   OrganizationApi,
   OrganizationProfile,
   OrganizationProfileOptions,
@@ -13,7 +18,7 @@ export type {
   PublicWebsite,
 } from "@features/organization/types";
 
-const validatePagination = (options: OrganizationProfileOptions): void => {
+const validatePagination = (options: t.OrganizationProfileOptions): void => {
   if (
     options.limit !== undefined &&
     (!Number.isInteger(options.limit) || options.limit < 1 || options.limit > 100)
@@ -29,9 +34,13 @@ const validatePagination = (options: OrganizationProfileOptions): void => {
   }
 };
 
-export const createOrganizationApi = (transport: Transport): OrganizationApi =>
+export const createOrganizationApi = (
+  transport: Transport,
+  config: ResolvedOptions,
+): t.OrganizationApi =>
   Object.freeze({
-    getProfile: async (options: OrganizationProfileOptions = {}) => {
+    logoUrl: () => `${publicBaseUrl(config)}/branding/logo`,
+    getProfile: async (options: t.OrganizationProfileOptions = {}) => {
       validatePagination(options);
 
       return transport.execute(
@@ -51,5 +60,32 @@ export const createOrganizationApi = (transport: Transport): OrganizationApi =>
         },
         options,
       );
+    },
+  });
+
+export const createDealershipsApi = (
+  transport: Transport,
+  config: ResolvedOptions,
+): t.DealershipsApi =>
+  Object.freeze<t.DealershipsApi>({
+    getProfile: async (dealershipSlug, options) => {
+      validateSlug(dealershipSlug, "dealershipSlug");
+
+      return transport.execute(
+        {
+          send: ({ api, organizationSlug, signal }) =>
+            api.GET("/public/o/{organizationSlug}/d/{dealershipSlug}/profile", {
+              params: { path: { organizationSlug, dealershipSlug } },
+              signal,
+            }),
+          decode: decodeProfile,
+        },
+        options,
+      );
+    },
+    logoUrl: (dealershipSlug) => {
+      validateSlug(dealershipSlug, "dealershipSlug");
+
+      return `${publicBaseUrl(config)}/d/${encodeURIComponent(dealershipSlug)}/branding/logo`;
     },
   });
