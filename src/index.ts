@@ -56,3 +56,23 @@ export type {
   InquirySubmitOptions,
 } from "@features/inquiries/index.inquiries";
 export { validateInquirySubmission } from "@features/inquiries/index.inquiries";
+
+export type {
+  AppraisalsApi,
+  AppraisalCustomer,
+  AppraisalContact,
+  AppraisalVehicle,
+  AppraisalPhotoContentType,
+  AppraisalPhotoInput,
+  AppraisalSubmission,
+  AppraisalLimits,
+  AppraisalPhotoPolicy,
+  EnabledAppraisalForm,
+  AppraisalForm,
+  AppraisalUpload,
+  AppraisalPhoto,
+  AppraisalReceipt,
+  AppraisalCompletionReceipt,
+  AppraisalSubmitOptions,
+} from "@features/appraisals/index.appraisals";
+export { validateAppraisalSubmission } from "@features/appraisals/index.appraisals";

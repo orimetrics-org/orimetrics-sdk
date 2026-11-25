@@ -37,7 +37,8 @@ remain mandatory and separate from emission.
 Client, transport, vehicle browsing, and public organization/dealership profiles and branding URL
 helpers are implemented. The public OpenAPI snapshot and generated transport types are pinned and
 verified in CI. Vehicle inquiries support form configuration and explicit submissions with stable
-idempotency keys. Appraisal APIs are next; React helpers remain deferred.
+idempotency keys. Appraisals support form configuration, submissions and explicit photo upload/completion.
+React helpers remain deferred.
 
 ```ts
 import { createOrimetricsClient } from "@orimetrics/sdk";
@@ -56,6 +57,7 @@ if (listing) {
 }
 ```
 
+See [appraisal submissions](docs/appraisal-submissions.md) for vehicle intake and photo recovery.
 See [vehicle inquiries](docs/vehicle-inquiries.md) for consent, form limits and submission retries.
 See [vehicle browsing](docs/vehicle-browsing.md) for filters, pagination, images and branding.
 See [client and transport](docs/transport.md) for configuration, cancellation, errors, credential rules,

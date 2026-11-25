@@ -2,7 +2,8 @@
 
 The package now exports `createOrimetricsClient`, `OrimetricsError`, configuration/request types, and
 public domain types. Organization/dealership profiles, vehicle browsing and vehicle inquiries use
-the shared internal transport. Appraisal operations will use it in their milestone.
+the shared internal transport. Appraisal form/submission/completion operations also use it; signed
+storage PUTs use a separate upload helper with the same deadlines and credential omission.
 
 ```ts
 import { createOrimetricsClient, OrimetricsError } from "@orimetrics/sdk";
@@ -89,7 +90,7 @@ Categorical arrays use repeated query parameters; JSON serialization preserves s
 
 Only scoped appraisal-photo completion POSTs may send an Authorization header. Public submissions
 preserve their caller-supplied idempotency keys; the transport neither generates keys nor retries writes.
-Future signed storage uploads need their dedicated upload workflow rather than this API-scoped transport.
+Signed storage uploads use the dedicated appraisal upload helper rather than this API-scoped transport.
 
 JSON and binary operations are distinct. Future binary operations select their parser and decoder
 explicitly. No-content success can be accepted by an appropriate decoder; the profile decoder correctly

@@ -9,13 +9,15 @@ src/
   features/organization/         Organization/dealership profiles and branding URLs
   features/vehicles/             Inventory operations, query helpers, types and decoders
   features/inquiries/            Public inquiry forms, submission and validation
+  features/appraisals/           Appraisal forms, submissions and explicit photo workflow
   shared/
     configuration/options.ts     Public client configuration type
     api/generated/schema.ts      Generated transport types; never edit manually
     api/                         Deadlines, errors and scoped openapi-fetch transport
+    submissions/                 Shared public contact/consent types and validation
 ```
 
-Add `src/features/<feature>/` when implementing appraisals. Each feature owns
+Add `src/features/<feature>/` for new feature owners. Each feature owns
 its transport mapping, workflow functions and domain types. Expose its supported integration surface
 through `index.<feature>.ts`; private implementation files stay private. Generated public transport types live under `src/shared/api/generated/`; regenerate them with
 `bun run contracts:generate`. See `contracts/README.md` for snapshot updates and verification.

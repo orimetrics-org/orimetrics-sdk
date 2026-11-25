@@ -3,6 +3,8 @@ import { mkdtemp, mkdir, readdir, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
+import * as appraisal from "../fixtures/appraisals";
+
 const repositoryRoot = process.cwd();
 
 let consumerDirectory: string;
@@ -75,7 +77,7 @@ test("ships only the declared distribution and package documentation", async () 
 test("declarations resolve without repository aliases or Bun ambient types", async () => {
   await writeFile(
     join(consumerDirectory, "consumer.ts"),
-    `import type { OrimetricsOptions, OrganizationProfile, VehiclePage, VehicleListing, InquiryForm, InquirySubmission, InquiryReceipt } from "@orimetrics/sdk";
+    `import type { OrimetricsOptions, OrganizationProfile, VehiclePage, VehicleListing, InquiryForm, InquirySubmission, InquiryReceipt, AppraisalSubmission, AppraisalReceipt, AppraisalForm } from "@orimetrics/sdk";
 import { createOrimetricsClient, OrimetricsError, validateInquirySubmission } from "@orimetrics/sdk";
 const options: OrimetricsOptions = {
   baseUrl: "https://api.example.test",
@@ -102,6 +104,12 @@ client.inquiries.submit("listing", submission);
 // @ts-expect-error Consent must be explicitly true.
 const unacknowledged: InquirySubmission = { ...submission, privacyAcknowledged: false };
 void [inquiryForm, receipt, unacknowledged, validateInquirySubmission];
+const appraisalForm: Promise<AppraisalForm> = client.appraisals.getForm("north");
+const appraisalInput: AppraisalSubmission = { ...submission, vehicle: { submittedBrand: "Toyota", submittedModel: "Corolla", submittedCity: "Quito", modelYear: 2020, conditionDescription: "Good", expectedPriceUsd: "15000.00" } };
+const appraisalReceipt: Promise<AppraisalReceipt> = client.appraisals.submit("north", appraisalInput, { idempotencyKey: "97c18d53-60b4-4b16-aad1-84cc66bf4df1" });
+// @ts-expect-error explicit idempotency key is required.
+client.appraisals.submit("north", appraisalInput);
+void [appraisalForm, appraisalReceipt];
 const profile: Promise<OrganizationProfile> = client.organization.getProfile({ timeoutMs: 5000 });
 // @ts-expect-error There is no arbitrary-route API.
 client.GET("/private");
@@ -174,5 +182,45 @@ if (receipt.accepted !== true || inquiryCalls !== 2) throw new Error("Inquiry wo
 
   expect(result.success).toBe(true);
   expect(result.logs).toHaveLength(0);
+  runCommand([process.execPath, entry], consumerDirectory);
+});
+
+test("packed appraisal API submits, uploads raw photos and completes separately", async () => {
+  const entry = join(consumerDirectory, "appraisal.js");
+  const photo = appraisal.createPhoto();
+
+  await writeFile(
+    entry,
+    `import { createOrimetricsClient, validateAppraisalSubmission } from "@orimetrics/sdk";
+const form = ${JSON.stringify(appraisal.createAppraisalForm())};
+const photo = ${JSON.stringify(photo)};
+const declared = ${JSON.stringify(appraisal.createPhotoInput())};
+const submission = ${JSON.stringify(appraisal.createAppraisal())};
+submission.photos = [declared];
+let calls = 0;
+const client = createOrimetricsClient({ baseUrl: "https://api.example", organizationSlug: "demo", fetch: async (request, init) => {
+ calls++;
+ if (init.credentials !== "omit") throw new Error("Credentials leaked");
+ if (calls === 1) return Response.json(form);
+ if (calls === 2) {
+  if (request.headers.get("Idempotency-Key") !== "97c18d53-60b4-4b16-aad1-84cc66bf4df1") throw new Error("Key changed");
+  return Response.json({ accepted: true, reference: "apr-receipt", photos: [photo] }, { status: 202 });
+ }
+ if (calls === 3) {
+  if (request.method !== "PUT" || await request.text() !== "abc" || request.headers.has("authorization")) throw new Error("Upload failed");
+  return new Response(null);
+ }
+ if (request.headers.get("Authorization") !== "Bearer " + photo.upload.completionToken) throw new Error("Completion token missing");
+ return Response.json({ accepted: true }, { status: 202 });
+} });
+validateAppraisalSubmission(submission, await client.appraisals.getForm("north"));
+const receipt = await client.appraisals.submit("north", submission, { idempotencyKey: "97c18d53-60b4-4b16-aad1-84cc66bf4df1" });
+await client.appraisals.uploadPhoto(receipt.photos[0], new Blob(["abc"], { type: "image/jpeg" }), declared);
+await client.appraisals.completePhoto("north", receipt.reference, receipt.photos[0]);
+if (calls !== 4) throw new Error("Unexpected request count");`,
+  );
+  const result = await Bun.build({ entrypoints: [entry], target: "browser", format: "esm" });
+
+  expect(result.success).toBe(true);
   runCommand([process.execPath, entry], consumerDirectory);
 });

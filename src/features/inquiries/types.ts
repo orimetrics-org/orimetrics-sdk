@@ -1,27 +1,11 @@
+import type { PublicSubmission as InquirySubmission } from "@shared/submissions/types";
 import type { RequestOptions } from "@shared/configuration/options";
 
-export type InquiryContact =
-  | {
-      readonly kind: "phone";
-      readonly value: string;
-      readonly countryCode?: string | null;
-      readonly label?: string | null;
-    }
-  | { readonly kind: "email"; readonly value: string; readonly label?: string | null };
-
-export interface InquiryCustomer {
-  readonly displayName: string;
-  readonly contacts: InquiryContact[];
-  readonly preferredContactChannel?: "phone" | "email" | "whatsapp" | null;
-}
-
-export interface InquirySubmission {
-  readonly customer: InquiryCustomer;
-  readonly message?: string | null;
-  readonly privacyVersion: string;
-  readonly privacyAcknowledged: true;
-  readonly turnstileToken: string;
-}
+export type {
+  SubmissionContact as InquiryContact,
+  SubmissionCustomer as InquiryCustomer,
+  PublicSubmission as InquirySubmission,
+} from "@shared/submissions/types";
 
 export interface InquiryLimits {
   readonly nameMaxCharacters: number;

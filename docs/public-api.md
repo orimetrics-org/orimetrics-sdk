@@ -5,8 +5,7 @@ can become a skeleton for client websites. React helpers are deferred until the 
 
 Client creation, vehicle browsing and organization/dealership profile and branding helpers are
 implemented; see [transport.md](transport.md) and [vehicle-browsing.md](vehicle-browsing.md).
-Vehicle inquiries are implemented; see [vehicle-inquiries.md](vehicle-inquiries.md). Appraisal names
-below describe the upcoming milestone.
+Vehicle inquiries are implemented; see [vehicle-inquiries.md](vehicle-inquiries.md). Appraisal submissions and photo upload/completion are implemented; see [appraisal-submissions.md](appraisal-submissions.md).
 Consumer examples should validate this interface before a stable release.
 
 ## Client and ownership
@@ -24,7 +23,7 @@ Use cohesive feature APIs:
 - `client.vehicles.list(filters)`, `client.vehicles.get(listingSlug)`, and `client.vehicles.photoUrl(...)`.
 - `client.inquiries.getForm(listingSlug)` and `client.inquiries.submit(...)`.
 - `client.appraisals.getForm(dealershipSlug)`, `client.appraisals.submit(...)`, and explicit photo
-  upload/completion helpers implemented with the appraisal milestone.
+  `uploadPhoto`/`completePhoto` helpers.
 
 Keep website routing and UI state out of these functions. Pure filter serialization helpers may be
 shared; filtering itself stays on the server. Use feature subpath exports when implementations exist,
@@ -55,5 +54,5 @@ operations omit ERP cookies and credentials. Core code has no persistent cache o
 
 ## Next milestone
 
-Vehicle browsing and public profile/branding operations are implemented. Next, create the minimalist demo website using the packed SDK. Appraisal workflows and optional
-React helpers remain later milestones.
+Public profiles, vehicle browsing, inquiries and appraisal submissions are implemented. Next, create
+the minimalist demo website using the packed SDK. Optional React helpers remain a later milestone.
