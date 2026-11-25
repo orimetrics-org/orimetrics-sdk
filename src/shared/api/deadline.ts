@@ -37,7 +37,11 @@ export const withDeadline = async <T>(
   const timer = setTimeout(() => interrupt(new OrimetricsError({ kind: "timeout" })), timeoutMs);
 
   try {
-    return await Promise.race([interrupted, run(controller.signal)]);
+    // Adopt synchronous throws as rejections too. Even if run aborts and then throws,
+    // both outcomes must be observed by the race (with interruption taking precedence).
+    const operation = new Promise<T>((resolve) => resolve(run(controller.signal)));
+
+    return await Promise.race([interrupted, operation]);
   } finally {
     clearTimeout(timer);
     callerSignal?.removeEventListener("abort", onAbort);

@@ -100,3 +100,39 @@ HTML or validate external links for rendering; website code remains responsible 
 
 Public profile interfaces are checked bidirectionally against the generated contract at compile time.
 They keep backend schema names and the full OpenAPI operation map out of public declarations.
+
+## Lifecycle ownership
+
+Client and transport have three lifecycles. Keep their ownership separate when adding features:
+
+- **Construction:** unresolved options → validated, frozen configuration → frozen client, or a thrown
+  configuration error. Construction is synchronous and performs no I/O. A client has no connecting,
+  authenticated or disposed state; requests are independent and require no client reset.
+- **Request supervision:** validate options → reject a pre-aborted call, or start an active operation
+  with one timer and one caller-abort listener → settle by success, failure, caller cancellation or
+  deadline → remove the timer and listener. Promise settlement owns the terminal outcome; AbortSignal
+  owns interruption. The interruption promise is rejected before abort listeners run, preserving safe
+  cancellation/timeout errors even when an adapter immediately rejects. Synchronous operation throws
+  are adopted as rejections so both sides of the race are observed. A late caller abort cannot change
+  an already settled operation. No retry/backoff states exist.
+- **Response handling:** sending → reading a received response → decoding its domain value → resolve
+  or reject. The internal RequestPhase union carries a Response only after receipt. Scope/header
+  rejection happens before fetch; fetch rejection is network failure. Reading includes status/media-type
+  checks and body consumption. Non-success responses produce HTTP errors; unavailable problem JSON
+  falls back to safe status/header diagnostics. Invalid JSON/media type is a protocol failure, whereas
+  an interrupted body stream is a network failure. Domain-decoder failures are protocol failures.
+  Existing non-protocol OrimetricsErrors pass through. Request IDs remain available after receipt.
+
+The deadline surrounds the entire response lifecycle, including HTTP problem-body reading. If a body
+never finishes, the deadline can win even after headers arrive. Interruption does not undo a write.
+An adapter that ignores its signal may still perform underlying work, but late responses are discarded
+and their unused bodies cancelled; late body completion cannot enter the feature decoder. Synchronous
+JavaScript decoding cannot be preempted by a timer.
+
+JSON versus binary, 204/205 handling, and the completion-token header exception are request policies,
+not persistent client states. Response stream consumption and promise settlement remain native Web API
+responsibilities. Avoid duplicate settled flags or a state-machine dependency for these mechanisms.
+
+Regression coverage lives in `test/transport/lifecycle.test.ts`, alongside deadline, serialization and
+client error-boundary tests. Public methods, error kinds, default deadlines and no-retry behavior remain
+unchanged by the explicit phase representation.

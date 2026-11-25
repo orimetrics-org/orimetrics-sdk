@@ -26,6 +26,33 @@ export interface Transport {
   readonly execute: <T>(operation: TransportOperation<T>, options?: RequestOptions) => Promise<T>;
 }
 
+// Promise settlement is terminal; these phases describe work before settlement.
+type RequestPhase =
+  | { readonly phase: "sending" }
+  | { readonly phase: "reading"; readonly response: Response }
+  | { readonly phase: "decoding"; readonly response: Response };
+
+const requestFailure = (error: unknown, state: RequestPhase): unknown => {
+  if (error instanceof OrimetricsError && error.kind !== "protocol") {
+    return error;
+  }
+
+  if (state.phase === "sending") {
+    // Configuration/request-construction errors retain their original type.
+    return error;
+  }
+
+  const requestId = responseRequestId(state.response);
+  const kind =
+    state.phase === "reading" &&
+    !(error instanceof SyntaxError) &&
+    !(error instanceof OrimetricsError)
+      ? "network"
+      : "protocol";
+
+  return new OrimetricsError({ kind, ...(requestId ? { requestId } : {}) });
+};
+
 const guardRequest = (request: Request, config: ResolvedOptions, signal: AbortSignal): Request => {
   const prefix = `${config.baseUrl}/public/o/${encodeURIComponent(config.organizationSlug)}/`;
 
@@ -56,8 +83,7 @@ const execute = async <T>(
   operation: TransportOperation<T>,
   signal: AbortSignal,
 ): Promise<T> => {
-  let response: Response | undefined;
-  let decoding = false;
+  let state: RequestPhase = { phase: "sending" };
 
   const api = createClient<paths>({
     baseUrl: config.baseUrl,
@@ -66,6 +92,8 @@ const execute = async <T>(
     redirect: "error",
     querySerializer: { array: { style: "form", explode: true } },
     fetch: async (request) => {
+      signal.throwIfAborted();
+
       const safeRequest = guardRequest(request, config, signal);
 
       try {
@@ -83,7 +111,15 @@ const execute = async <T>(
 
   api.use({
     onResponse: async (context) => {
-      response = context.response;
+      if (signal.aborted) {
+        // A custom fetch can resolve after interruption. Release its unused body
+        // without waiting on an equally uncooperative stream cancellation.
+        void context.response.body?.cancel().catch(() => undefined);
+        signal.throwIfAborted();
+      }
+
+      const response = context.response;
+      state = { phase: "reading", response };
 
       if (!response.ok) {
         throw await httpError(response);
@@ -109,26 +145,12 @@ const execute = async <T>(
   try {
     const result = await operation.send({ api, organizationSlug: config.organizationSlug, signal });
 
-    decoding = true;
+    signal.throwIfAborted();
+    state = { phase: "decoding", response: result.response };
 
     return operation.decode(result.data);
   } catch (error) {
-    if (error instanceof OrimetricsError && error.kind !== "protocol") {
-      throw error;
-    }
-
-    const requestId = response ? responseRequestId(response) : undefined;
-
-    if (!response) {
-      throw error;
-    }
-
-    const kind =
-      !decoding && !(error instanceof SyntaxError) && !(error instanceof OrimetricsError)
-        ? "network"
-        : "protocol";
-
-    throw new OrimetricsError({ kind, ...(requestId ? { requestId } : {}) });
+    throw requestFailure(error, state);
   }
 };
 
