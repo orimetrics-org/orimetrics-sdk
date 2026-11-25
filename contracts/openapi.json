@@ -1,0 +1,5596 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Orimetrics public SDK API",
+    "version": "1.0.59",
+    "description": "Explicitly selected public operations from the versioned Engine contract. No deployment URL or ERP session credentials are included."
+  },
+  "paths": {
+    "/public/o/{organizationSlug}/branding/logo": {
+      "get": {
+        "operationId": "get_public_o_by_organizationSlug_branding_logo",
+        "summary": "GET /public/o/:organizationSlug/branding/logo",
+        "tags": ["Public business settings"],
+        "description": "Public SDK transport contract. See contracts/README.md for workflow semantics.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "organizationSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. See the feature guide for lifecycle and representation rules.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "image/webp": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem404"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem413"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem422"
+                }
+              }
+            }
+          },
+          "499": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem499"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem500"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem503"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem504"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/o/{organizationSlug}/d/{dealershipSlug}/appraisal-requests": {
+      "post": {
+        "operationId": "post_public_o_by_organizationSlug_d_by_dealershipSlug_appraisal_requests",
+        "summary": "POST /public/o/:organizationSlug/d/:dealershipSlug/appraisal-requests",
+        "tags": ["Appraisals"],
+        "description": "Public SDK transport contract. See contracts/README.md for workflow semantics.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "description": "Stable key for one logical operation. UUID for public submissions, financial and inventory workflows; staff appraisal keys accept 8–200 safe characters. See the feature guide for exact matching and retention rules.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "organizationSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dealershipSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "customer",
+                  "vehicle",
+                  "privacyVersion",
+                  "privacyAcknowledged",
+                  "turnstileToken"
+                ],
+                "properties": {
+                  "customer": {
+                    "$ref": "#/components/schemas/PostPublicOOrganizationDDealershipAppraisalRequestsBodyCustomer"
+                  },
+                  "vehicle": {
+                    "type": "object",
+                    "required": [
+                      "submittedBrand",
+                      "submittedModel",
+                      "modelYear",
+                      "submittedCity",
+                      "conditionDescription"
+                    ],
+                    "properties": {
+                      "submittedBrand": {
+                        "type": "string"
+                      },
+                      "submittedModel": {
+                        "type": "string"
+                      },
+                      "modelYear": {
+                        "type": "number"
+                      },
+                      "submittedCity": {
+                        "type": "string"
+                      },
+                      "conditionDescription": {
+                        "type": "string"
+                      },
+                      "vin": {
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "licensePlate": {
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "odometerValue": {
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "odometerUnit": {
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string",
+                            "const": "km"
+                          },
+                          {
+                            "type": "string",
+                            "const": "mi"
+                          }
+                        ]
+                      },
+                      "expectedPriceUsd": {
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "message": {
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "photos": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/PostOOrganizationDDealershipAppraisalRequestsRequestReferencePhotosBody"
+                    }
+                  },
+                  "privacyVersion": {
+                    "type": "string"
+                  },
+                  "privacyAcknowledged": {
+                    "type": "boolean",
+                    "const": true
+                  },
+                  "turnstileToken": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Success. See the feature guide for lifecycle and representation rules.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["accepted", "reference", "photos"],
+                  "properties": {
+                    "accepted": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "reference": {
+                      "type": "string"
+                    },
+                    "photos": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "required": ["slug", "state", "upload"],
+                            "properties": {
+                              "slug": {
+                                "type": "string"
+                              },
+                              "state": {
+                                "type": "string",
+                                "const": "upload_closed"
+                              },
+                              "upload": {
+                                "type": "null"
+                              }
+                            }
+                          },
+                          {
+                            "type": "object",
+                            "required": ["slug", "state", "upload"],
+                            "properties": {
+                              "slug": {
+                                "type": "string"
+                              },
+                              "state": {
+                                "type": "string",
+                                "const": "temporarily_unavailable"
+                              },
+                              "upload": {
+                                "type": "null"
+                              }
+                            }
+                          },
+                          {
+                            "type": "object",
+                            "required": ["slug", "state", "upload"],
+                            "properties": {
+                              "slug": {
+                                "type": "string"
+                              },
+                              "state": {
+                                "type": "string",
+                                "const": "completion_accepted"
+                              },
+                              "upload": {
+                                "type": "null"
+                              }
+                            }
+                          },
+                          {
+                            "type": "object",
+                            "required": ["slug", "state", "upload"],
+                            "properties": {
+                              "slug": {
+                                "type": "string"
+                              },
+                              "state": {
+                                "type": "string",
+                                "const": "upload_available"
+                              },
+                              "upload": {
+                                "type": "object",
+                                "required": [
+                                  "url",
+                                  "method",
+                                  "expiresAt",
+                                  "headers",
+                                  "completePath",
+                                  "completionToken",
+                                  "completionExpiresAt"
+                                ],
+                                "properties": {
+                                  "url": {
+                                    "type": "string"
+                                  },
+                                  "method": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "const": "GET"
+                                      },
+                                      {
+                                        "type": "string",
+                                        "const": "PUT"
+                                      }
+                                    ]
+                                  },
+                                  "expiresAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "headers": {
+                                    "type": "object",
+                                    "required": [],
+                                    "properties": {},
+                                    "additionalProperties": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "completePath": {
+                                    "type": "string"
+                                  },
+                                  "completionToken": {
+                                    "type": "string"
+                                  },
+                                  "completionExpiresAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem400"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem403"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem404"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem409"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem412"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem413"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem422"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem428"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds to wait before retrying.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem429"
+                }
+              }
+            }
+          },
+          "499": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem499"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem500"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem503"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem504"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/o/{organizationSlug}/d/{dealershipSlug}/appraisal-requests/form": {
+      "get": {
+        "operationId": "get_public_o_by_organizationSlug_d_by_dealershipSlug_appraisal_requests_form",
+        "summary": "GET /public/o/:organizationSlug/d/:dealershipSlug/appraisal-requests/form",
+        "tags": ["Appraisals"],
+        "description": "Public SDK transport contract. See contracts/README.md for workflow semantics.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "organizationSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dealershipSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. See the feature guide for lifecycle and representation rules.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "required": ["enabled"],
+                      "properties": {
+                        "privacyNotice": false,
+                        "turnstile": false,
+                        "limits": false,
+                        "enabled": {
+                          "type": "boolean"
+                        },
+                        "company": false,
+                        "dealership": false,
+                        "photos": false
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "required": [
+                        "enabled",
+                        "company",
+                        "dealership",
+                        "privacyNotice",
+                        "turnstile",
+                        "limits",
+                        "photos"
+                      ],
+                      "properties": {
+                        "enabled": {
+                          "type": "boolean"
+                        },
+                        "company": {
+                          "type": "object",
+                          "required": ["slug", "name"],
+                          "properties": {
+                            "slug": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "dealership": {
+                          "type": "object",
+                          "required": ["slug", "name"],
+                          "properties": {
+                            "slug": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "privacyNotice": {
+                          "type": "object",
+                          "required": ["url", "version"],
+                          "properties": {
+                            "url": {
+                              "anyOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "version": {
+                              "anyOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "turnstile": {
+                          "type": "object",
+                          "required": ["siteKey", "action"],
+                          "properties": {
+                            "siteKey": {
+                              "type": "string"
+                            },
+                            "action": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "limits": {
+                          "$ref": "#/components/schemas/GetPublicOOrganizationDDealershipAppraisalRequestsFormResponse200Variant2Limits"
+                        },
+                        "photos": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "required": ["enabled", "contentTypes"],
+                              "properties": {
+                                "enabled": {
+                                  "type": "boolean",
+                                  "const": false
+                                },
+                                "maxPhotos": false,
+                                "maxUploadBytes": false,
+                                "uploadSeconds": false,
+                                "contentTypes": {
+                                  "$ref": "#/components/schemas/GetPublicOOrganizationDDealershipAppraisalRequestsFormResponse200Variant2PhotosVariant1ContentTypes"
+                                }
+                              }
+                            },
+                            {
+                              "type": "object",
+                              "required": [
+                                "enabled",
+                                "maxPhotos",
+                                "maxUploadBytes",
+                                "uploadSeconds",
+                                "contentTypes"
+                              ],
+                              "properties": {
+                                "enabled": {
+                                  "type": "boolean",
+                                  "const": true
+                                },
+                                "maxPhotos": {
+                                  "type": "number"
+                                },
+                                "maxUploadBytes": {
+                                  "type": "number"
+                                },
+                                "uploadSeconds": {
+                                  "type": "number"
+                                },
+                                "contentTypes": {
+                                  "$ref": "#/components/schemas/GetPublicOOrganizationDDealershipAppraisalRequestsFormResponse200Variant2PhotosVariant1ContentTypes"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem404"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem413"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem422"
+                }
+              }
+            }
+          },
+          "499": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem499"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem500"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem503"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem504"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/o/{organizationSlug}/d/{dealershipSlug}/appraisal-requests/{requestReference}/photos/{photoSlug}/complete": {
+      "post": {
+        "operationId": "post_public_o_by_organizationSlug_d_by_dealershipSlug_appraisal_requests_by_requestReference_photos_by_photoSlug_complete",
+        "summary": "POST /public/o/:organizationSlug/d/:dealershipSlug/appraisal-requests/:requestReference/photos/:photoSlug/complete",
+        "tags": ["Appraisals"],
+        "description": "Public SDK transport contract. See contracts/README.md for workflow semantics.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Bearer completionToken returned for this exact photo by the public submission receipt. It expires with the original upload window and grants no read access.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "organizationSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dealershipSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "requestReference",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "photoSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Success. See the feature guide for lifecycle and representation rules.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["accepted"],
+                  "properties": {
+                    "accepted": {
+                      "type": "boolean",
+                      "const": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem400"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem403"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem404"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem409"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem412"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem413"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem422"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem428"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds to wait before retrying.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem429"
+                }
+              }
+            }
+          },
+          "499": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem499"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem500"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem503"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem504"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/o/{organizationSlug}/d/{dealershipSlug}/branding/logo": {
+      "get": {
+        "operationId": "get_public_o_by_organizationSlug_d_by_dealershipSlug_branding_logo",
+        "summary": "GET /public/o/:organizationSlug/d/:dealershipSlug/branding/logo",
+        "tags": ["Public business settings"],
+        "description": "Public SDK transport contract. See contracts/README.md for workflow semantics.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "organizationSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dealershipSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. See the feature guide for lifecycle and representation rules.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "image/webp": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem404"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem413"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem422"
+                }
+              }
+            }
+          },
+          "499": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem499"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem500"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem503"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem504"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/o/{organizationSlug}/d/{dealershipSlug}/profile": {
+      "get": {
+        "operationId": "get_public_o_by_organizationSlug_d_by_dealershipSlug_profile",
+        "summary": "GET /public/o/:organizationSlug/d/:dealershipSlug/profile",
+        "tags": ["Public business settings"],
+        "description": "Public SDK transport contract. See contracts/README.md for workflow semantics.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "organizationSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dealershipSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. See the feature guide for lifecycle and representation rules.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPublicOOrganizationDDealershipProfileResponse200"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem404"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem413"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem422"
+                }
+              }
+            }
+          },
+          "499": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem499"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem500"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem503"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem504"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/o/{organizationSlug}/profile": {
+      "get": {
+        "operationId": "get_public_o_by_organizationSlug_profile",
+        "summary": "GET /public/o/:organizationSlug/profile",
+        "tags": ["Public business settings"],
+        "description": "Public SDK transport contract. See contracts/README.md for workflow semantics.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "organizationSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {}
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {}
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. See the feature guide for lifecycle and representation rules.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPublicOOrganizationDDealershipProfileResponse200"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem404"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem413"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem422"
+                }
+              }
+            }
+          },
+          "499": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem499"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem500"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem503"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem504"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/o/{organizationSlug}/vehicles": {
+      "get": {
+        "operationId": "get_public_o_by_organizationSlug_vehicles",
+        "summary": "GET /public/o/:organizationSlug/vehicles",
+        "tags": ["Public listings"],
+        "description": "Public SDK transport contract. See contracts/README.md for workflow semantics.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "organizationSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          {
+            "name": "dealership",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "city",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "brand",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "model",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "condition",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "const": "new"
+                      },
+                      {
+                        "type": "string",
+                        "const": "used"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "fuelType",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "transmission",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "vehicleType",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "const": "available"
+                      },
+                      {
+                        "type": "string",
+                        "const": "reserved"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "priceMin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          {
+            "name": "priceMax",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          {
+            "name": "yearMin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            }
+          },
+          {
+            "name": "yearMax",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            }
+          },
+          {
+            "name": "mileageMinKm",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            }
+          },
+          {
+            "name": "mileageMaxKm",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "const": "mileage_asc"
+                },
+                {
+                  "type": "string",
+                  "const": "mileage_desc"
+                },
+                {
+                  "type": "string",
+                  "const": "newest"
+                },
+                {
+                  "type": "string",
+                  "const": "price_asc"
+                },
+                {
+                  "type": "string",
+                  "const": "price_desc"
+                },
+                {
+                  "type": "string",
+                  "const": "year_asc"
+                },
+                {
+                  "type": "string",
+                  "const": "year_desc"
+                }
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. See the feature guide for lifecycle and representation rules.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "listings",
+                    "limit",
+                    "offset",
+                    "total",
+                    "hasMore",
+                    "sort",
+                    "facets",
+                    "ranges"
+                  ],
+                  "properties": {
+                    "listings": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/GetPublicOOrganizationVehiclesResponse200ListingsItem"
+                      }
+                    },
+                    "limit": {
+                      "type": "number"
+                    },
+                    "offset": {
+                      "type": "number"
+                    },
+                    "total": {
+                      "type": "number"
+                    },
+                    "hasMore": {
+                      "type": "boolean"
+                    },
+                    "sort": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "const": "mileage_asc"
+                        },
+                        {
+                          "type": "string",
+                          "const": "mileage_desc"
+                        },
+                        {
+                          "type": "string",
+                          "const": "newest"
+                        },
+                        {
+                          "type": "string",
+                          "const": "price_asc"
+                        },
+                        {
+                          "type": "string",
+                          "const": "price_desc"
+                        },
+                        {
+                          "type": "string",
+                          "const": "year_asc"
+                        },
+                        {
+                          "type": "string",
+                          "const": "year_desc"
+                        }
+                      ]
+                    },
+                    "facets": {
+                      "type": "object",
+                      "required": [
+                        "dealership",
+                        "city",
+                        "brand",
+                        "model",
+                        "condition",
+                        "fuelType",
+                        "transmission",
+                        "vehicleType",
+                        "availability"
+                      ],
+                      "properties": {
+                        "dealership": {
+                          "$ref": "#/components/schemas/GetPublicOOrganizationVehiclesResponse200FacetsDealership"
+                        },
+                        "city": {
+                          "$ref": "#/components/schemas/GetPublicOOrganizationVehiclesResponse200FacetsDealership"
+                        },
+                        "brand": {
+                          "$ref": "#/components/schemas/GetPublicOOrganizationVehiclesResponse200FacetsDealership"
+                        },
+                        "model": {
+                          "$ref": "#/components/schemas/GetPublicOOrganizationVehiclesResponse200FacetsDealership"
+                        },
+                        "condition": {
+                          "$ref": "#/components/schemas/GetPublicOOrganizationVehiclesResponse200FacetsDealership"
+                        },
+                        "fuelType": {
+                          "$ref": "#/components/schemas/GetPublicOOrganizationVehiclesResponse200FacetsDealership"
+                        },
+                        "transmission": {
+                          "$ref": "#/components/schemas/GetPublicOOrganizationVehiclesResponse200FacetsDealership"
+                        },
+                        "vehicleType": {
+                          "$ref": "#/components/schemas/GetPublicOOrganizationVehiclesResponse200FacetsDealership"
+                        },
+                        "availability": {
+                          "$ref": "#/components/schemas/GetPublicOOrganizationVehiclesResponse200FacetsDealership"
+                        }
+                      }
+                    },
+                    "ranges": {
+                      "type": "object",
+                      "required": ["priceUsd", "year", "mileageKm"],
+                      "properties": {
+                        "priceUsd": {
+                          "type": "object",
+                          "required": ["min", "max"],
+                          "properties": {
+                            "min": {
+                              "anyOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "max": {
+                              "anyOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "year": {
+                          "$ref": "#/components/schemas/GetPublicOOrganizationVehiclesResponse200RangesYear"
+                        },
+                        "mileageKm": {
+                          "$ref": "#/components/schemas/GetPublicOOrganizationVehiclesResponse200RangesYear"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem404"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem413"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem422"
+                }
+              }
+            }
+          },
+          "499": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem499"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem500"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem503"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem504"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/o/{organizationSlug}/vehicles/{listingSlug}": {
+      "get": {
+        "operationId": "get_public_o_by_organizationSlug_vehicles_by_listingSlug",
+        "summary": "GET /public/o/:organizationSlug/vehicles/:listingSlug",
+        "tags": ["Public listings"],
+        "description": "Public SDK transport contract. See contracts/README.md for workflow semantics.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "listingSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "organizationSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. See the feature guide for lifecycle and representation rules.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPublicOOrganizationVehiclesResponse200ListingsItem"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem404"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem413"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem422"
+                }
+              }
+            }
+          },
+          "499": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem499"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem500"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem503"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem504"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/o/{organizationSlug}/vehicles/{listingSlug}/interest-requests": {
+      "post": {
+        "operationId": "post_public_o_by_organizationSlug_vehicles_by_listingSlug_interest_requests",
+        "summary": "POST /public/o/:organizationSlug/vehicles/:listingSlug/interest-requests",
+        "tags": ["Interest requests"],
+        "description": "Public SDK transport contract. See contracts/README.md for workflow semantics.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "description": "Stable key for one logical operation. UUID for public submissions, financial and inventory workflows; staff appraisal keys accept 8–200 safe characters. See the feature guide for exact matching and retention rules.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "listingSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "organizationSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["customer", "privacyVersion", "privacyAcknowledged", "turnstileToken"],
+                "properties": {
+                  "customer": {
+                    "$ref": "#/components/schemas/PostPublicOOrganizationDDealershipAppraisalRequestsBodyCustomer"
+                  },
+                  "message": {
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "privacyVersion": {
+                    "type": "string"
+                  },
+                  "privacyAcknowledged": {
+                    "type": "boolean",
+                    "const": true
+                  },
+                  "turnstileToken": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Success. See the feature guide for lifecycle and representation rules.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["accepted"],
+                  "properties": {
+                    "accepted": {
+                      "type": "boolean",
+                      "const": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem400"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem403"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem404"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem409"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem412"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem413"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem422"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem428"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds to wait before retrying.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem429"
+                }
+              }
+            }
+          },
+          "499": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem499"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem500"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem503"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem504"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/o/{organizationSlug}/vehicles/{listingSlug}/interest-requests/form": {
+      "get": {
+        "operationId": "get_public_o_by_organizationSlug_vehicles_by_listingSlug_interest_requests_form",
+        "summary": "GET /public/o/:organizationSlug/vehicles/:listingSlug/interest-requests/form",
+        "tags": ["Interest requests"],
+        "description": "Public SDK transport contract. See contracts/README.md for workflow semantics.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "listingSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "organizationSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. See the feature guide for lifecycle and representation rules.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "required": ["enabled"],
+                      "properties": {
+                        "enabled": {
+                          "type": "boolean"
+                        },
+                        "privacyNotice": false,
+                        "turnstile": false,
+                        "limits": false
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "required": ["enabled", "privacyNotice", "turnstile", "limits"],
+                      "properties": {
+                        "enabled": {
+                          "type": "boolean"
+                        },
+                        "privacyNotice": {
+                          "type": "object",
+                          "required": ["url", "version"],
+                          "properties": {
+                            "url": {
+                              "type": "string"
+                            },
+                            "version": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "turnstile": {
+                          "type": "object",
+                          "required": ["siteKey", "action"],
+                          "properties": {
+                            "siteKey": {
+                              "type": "string"
+                            },
+                            "action": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "limits": {
+                          "$ref": "#/components/schemas/GetPublicOOrganizationDDealershipAppraisalRequestsFormResponse200Variant2Limits"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem404"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem413"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem422"
+                }
+              }
+            }
+          },
+          "499": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem499"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem500"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem503"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem504"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/o/{organizationSlug}/vehicles/{listingSlug}/photos/{photoSlug}": {
+      "get": {
+        "operationId": "get_public_o_by_organizationSlug_vehicles_by_listingSlug_photos_by_photoSlug",
+        "summary": "GET /public/o/:organizationSlug/vehicles/:listingSlug/photos/:photoSlug",
+        "tags": ["Vehicle images"],
+        "description": "Public SDK transport contract. See contracts/README.md for workflow semantics.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "listingSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "organizationSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "photoSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "variant",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "const": "card"
+                },
+                {
+                  "type": "string",
+                  "const": "gallery"
+                },
+                {
+                  "type": "string",
+                  "const": "thumbnail"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. See the feature guide for lifecycle and representation rules.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "image/webp": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem404"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem413"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem422"
+                }
+              }
+            }
+          },
+          "499": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem499"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem500"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem503"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Failure; inspect the status and stable problem code. Readiness also returns its health payload.",
+            "headers": {
+              "ETag": {
+                "description": "Present on versioned resource/account/gallery responses. Use the correct version source documented for the command.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Request correlation identifier.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem504"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GetOOrganizationDDealershipPublicProfileResponse200Overrides": {
+        "type": "object",
+        "required": [
+          "publicPhone",
+          "publicEmail",
+          "address",
+          "facebookUrl",
+          "instagramUrl",
+          "tiktokUrl",
+          "youtubeUrl",
+          "whatsappNumber",
+          "whatsappMessage"
+        ],
+        "properties": {
+          "publicPhone": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "publicEmail": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "address": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "facebookUrl": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "instagramUrl": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "tiktokUrl": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "youtubeUrl": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "whatsappNumber": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "whatsappMessage": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        }
+      },
+      "GetOOrganizationVehiclesVehicleSlugListingResponse200HistoryItemContentSpecifications": {
+        "type": "object",
+        "required": [],
+        "properties": {},
+        "additionalProperties": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        }
+      },
+      "GetOOrganizationWebsiteResponse200Resolved": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/GetOOrganizationWebsiteResponse200ResolvedVariant1"
+          },
+          {
+            "$ref": "#/components/schemas/GetOOrganizationWebsiteResponse200ResolvedVariant2"
+          },
+          {
+            "$ref": "#/components/schemas/GetOOrganizationWebsiteResponse200ResolvedVariant3"
+          }
+        ]
+      },
+      "GetOOrganizationWebsiteResponse200ResolvedVariant1": {
+        "type": "object",
+        "required": ["origin", "source"],
+        "properties": {
+          "origin": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string",
+            "const": "registered"
+          }
+        }
+      },
+      "GetOOrganizationWebsiteResponse200ResolvedVariant2": {
+        "type": "object",
+        "required": ["origin", "source"],
+        "properties": {
+          "origin": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string",
+            "const": "fallback"
+          }
+        }
+      },
+      "GetOOrganizationWebsiteResponse200ResolvedVariant3": {
+        "type": "object",
+        "required": ["origin", "source"],
+        "properties": {
+          "origin": {
+            "type": "null"
+          },
+          "source": {
+            "type": "string",
+            "const": "unconfigured"
+          }
+        }
+      },
+      "GetPublicOOrganizationDDealershipAppraisalRequestsFormResponse200Variant2Limits": {
+        "type": "object",
+        "required": ["nameMaxCharacters", "messageMaxCharacters", "maxPhones", "maxEmails"],
+        "properties": {
+          "nameMaxCharacters": {
+            "type": "number"
+          },
+          "messageMaxCharacters": {
+            "type": "number"
+          },
+          "maxPhones": {
+            "type": "number"
+          },
+          "maxEmails": {
+            "type": "number"
+          }
+        }
+      },
+      "GetPublicOOrganizationDDealershipAppraisalRequestsFormResponse200Variant2PhotosVariant1ContentTypes": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/PostOOrganizationDDealershipAppraisalRequestsRequestReferencePhotosBodyContentType"
+        }
+      },
+      "GetPublicOOrganizationDDealershipProfileResponse200": {
+        "type": "object",
+        "required": ["company", "website", "contact", "branding", "dealerships"],
+        "properties": {
+          "company": {
+            "type": "object",
+            "required": ["name", "slug"],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              }
+            }
+          },
+          "website": {
+            "$ref": "#/components/schemas/GetOOrganizationWebsiteResponse200Resolved"
+          },
+          "contact": {
+            "$ref": "#/components/schemas/GetOOrganizationDDealershipPublicProfileResponse200Overrides"
+          },
+          "branding": {
+            "$ref": "#/components/schemas/GetPublicOOrganizationDDealershipProfileResponse200Branding"
+          },
+          "dealerships": {
+            "$ref": "#/components/schemas/GetPublicOOrganizationDDealershipProfileResponse200Dealerships"
+          }
+        }
+      },
+      "GetPublicOOrganizationDDealershipProfileResponse200Branding": {
+        "type": "object",
+        "required": ["primaryColor", "accentColor", "logo"],
+        "properties": {
+          "primaryColor": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "accentColor": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "logo": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "required": ["path"],
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "GetPublicOOrganizationDDealershipProfileResponse200Dealerships": {
+        "type": "object",
+        "required": ["items", "total", "limit", "offset", "hasMore"],
+        "properties": {
+          "items": {
+            "$ref": "#/components/schemas/GetPublicOOrganizationDDealershipProfileResponse200DealershipsItems"
+          },
+          "total": {
+            "type": "number"
+          },
+          "limit": {
+            "type": "number"
+          },
+          "offset": {
+            "type": "number"
+          },
+          "hasMore": {
+            "type": "boolean"
+          }
+        }
+      },
+      "GetPublicOOrganizationDDealershipProfileResponse200DealershipsItems": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/GetPublicOOrganizationDDealershipProfileResponse200DealershipsItemsItem"
+        }
+      },
+      "GetPublicOOrganizationDDealershipProfileResponse200DealershipsItemsItem": {
+        "type": "object",
+        "required": ["name", "slug", "city", "path", "contact", "branding"],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "city": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "path": {
+            "type": "string"
+          },
+          "contact": {
+            "$ref": "#/components/schemas/GetOOrganizationDDealershipPublicProfileResponse200Overrides"
+          },
+          "branding": {
+            "$ref": "#/components/schemas/GetPublicOOrganizationDDealershipProfileResponse200Branding"
+          }
+        }
+      },
+      "GetPublicOOrganizationVehiclesResponse200FacetsDealership": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/GetPublicOOrganizationVehiclesResponse200FacetsDealershipItem"
+        }
+      },
+      "GetPublicOOrganizationVehiclesResponse200FacetsDealershipItem": {
+        "type": "object",
+        "required": ["value", "label", "count"],
+        "properties": {
+          "value": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "count": {
+            "type": "number"
+          }
+        }
+      },
+      "GetPublicOOrganizationVehiclesResponse200ListingsItem": {
+        "type": "object",
+        "required": [
+          "slug",
+          "path",
+          "title",
+          "description",
+          "askingPriceUsd",
+          "currency",
+          "specifications",
+          "availability",
+          "company",
+          "dealership",
+          "publishedAt",
+          "interestRequestsEnabled",
+          "photos"
+        ],
+        "properties": {
+          "slug": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "askingPriceUsd": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "specifications": {
+            "$ref": "#/components/schemas/GetOOrganizationVehiclesVehicleSlugListingResponse200HistoryItemContentSpecifications"
+          },
+          "availability": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": "available"
+              },
+              {
+                "type": "string",
+                "const": "reserved"
+              },
+              {
+                "type": "string",
+                "const": "sold"
+              }
+            ]
+          },
+          "company": {
+            "type": "object",
+            "required": ["name", "slug"],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              }
+            }
+          },
+          "dealership": {
+            "$ref": "#/components/schemas/GetPublicOOrganizationVehiclesResponse200ListingsItemDealership"
+          },
+          "publishedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "interestRequestsEnabled": {
+            "type": "boolean"
+          },
+          "photos": {
+            "$ref": "#/components/schemas/GetPublicOOrganizationVehiclesResponse200ListingsItemPhotos"
+          }
+        }
+      },
+      "GetPublicOOrganizationVehiclesResponse200ListingsItemDealership": {
+        "type": "object",
+        "required": ["name", "address", "publicPhone", "publicEmail", "slug", "city"],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "publicPhone": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "publicEmail": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "slug": {
+            "type": "string"
+          },
+          "city": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        }
+      },
+      "GetPublicOOrganizationVehiclesResponse200ListingsItemPhotos": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/GetPublicOOrganizationVehiclesResponse200ListingsItemPhotosItem"
+        }
+      },
+      "GetPublicOOrganizationVehiclesResponse200ListingsItemPhotosItem": {
+        "type": "object",
+        "required": ["slug", "isCover", "altText", "path"],
+        "properties": {
+          "slug": {
+            "type": "string"
+          },
+          "isCover": {
+            "type": "boolean"
+          },
+          "altText": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "path": {
+            "type": "string"
+          }
+        }
+      },
+      "GetPublicOOrganizationVehiclesResponse200RangesYear": {
+        "type": "object",
+        "required": ["min", "max"],
+        "properties": {
+          "min": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "max": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          }
+        }
+      },
+      "PostOOrganizationCustomersBodyContacts": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/PostOOrganizationCustomersBodyContactsItem"
+        }
+      },
+      "PostOOrganizationCustomersBodyContactsItem": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/PostOOrganizationCustomersBodyContactsItemVariant1"
+          },
+          {
+            "$ref": "#/components/schemas/PostOOrganizationCustomersBodyContactsItemVariant2"
+          }
+        ]
+      },
+      "PostOOrganizationCustomersBodyContactsItemVariant1": {
+        "type": "object",
+        "required": ["kind", "value"],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "const": "phone"
+          },
+          "value": {
+            "type": "string"
+          },
+          "countryCode": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "label": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        }
+      },
+      "PostOOrganizationCustomersBodyContactsItemVariant2": {
+        "type": "object",
+        "required": ["kind", "value"],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "const": "email"
+          },
+          "value": {
+            "type": "string"
+          },
+          "label": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        }
+      },
+      "PostOOrganizationCustomersBodyPreferredContactChannel": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "string",
+            "const": "email"
+          },
+          {
+            "type": "string",
+            "const": "phone"
+          },
+          {
+            "type": "string",
+            "const": "whatsapp"
+          }
+        ]
+      },
+      "PostOOrganizationDDealershipAppraisalRequestsRequestReferencePhotosBody": {
+        "type": "object",
+        "required": ["filename", "contentType", "byteSize"],
+        "properties": {
+          "filename": {
+            "type": "string"
+          },
+          "contentType": {
+            "$ref": "#/components/schemas/PostOOrganizationDDealershipAppraisalRequestsRequestReferencePhotosBodyContentType"
+          },
+          "byteSize": {
+            "type": "number"
+          },
+          "altText": {
+            "type": "string"
+          }
+        }
+      },
+      "PostOOrganizationDDealershipAppraisalRequestsRequestReferencePhotosBodyContentType": {
+        "anyOf": [
+          {
+            "type": "string",
+            "const": "image/heic"
+          },
+          {
+            "type": "string",
+            "const": "image/jpeg"
+          },
+          {
+            "type": "string",
+            "const": "image/png"
+          },
+          {
+            "type": "string",
+            "const": "image/webp"
+          }
+        ]
+      },
+      "PostPublicOOrganizationDDealershipAppraisalRequestsBodyCustomer": {
+        "type": "object",
+        "required": ["displayName", "contacts"],
+        "properties": {
+          "displayName": {
+            "type": "string"
+          },
+          "contacts": {
+            "$ref": "#/components/schemas/PostOOrganizationCustomersBodyContacts"
+          },
+          "preferredContactChannel": {
+            "$ref": "#/components/schemas/PostOOrganizationCustomersBodyPreferredContactChannel"
+          }
+        }
+      },
+      "Problem400": {
+        "type": "object",
+        "required": ["type", "title", "status", "code", "requestId", "instance"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "about:blank"
+          },
+          "title": {
+            "type": "string",
+            "const": "Bad Request"
+          },
+          "status": {
+            "type": "number",
+            "const": 400
+          },
+          "code": {
+            "type": "string",
+            "const": "BAD_REQUEST"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "instance": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "Problem403": {
+        "type": "object",
+        "required": ["type", "title", "status", "code", "requestId", "instance"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "about:blank"
+          },
+          "title": {
+            "type": "string",
+            "const": "Forbidden"
+          },
+          "status": {
+            "type": "number",
+            "const": 403
+          },
+          "code": {
+            "type": "string",
+            "const": "FORBIDDEN"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "instance": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "Problem404": {
+        "type": "object",
+        "required": ["type", "title", "status", "code", "requestId", "instance"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "about:blank"
+          },
+          "title": {
+            "type": "string",
+            "const": "Not Found"
+          },
+          "status": {
+            "type": "number",
+            "const": 404
+          },
+          "code": {
+            "type": "string",
+            "const": "NOT_FOUND"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "instance": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "Problem409": {
+        "type": "object",
+        "required": ["type", "title", "status", "code", "requestId", "instance"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "about:blank"
+          },
+          "title": {
+            "type": "string",
+            "const": "Conflict"
+          },
+          "status": {
+            "type": "number",
+            "const": 409
+          },
+          "code": {
+            "type": "string",
+            "const": "CONFLICT"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "instance": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "Problem412": {
+        "type": "object",
+        "required": ["type", "title", "status", "code", "requestId", "instance"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "about:blank"
+          },
+          "title": {
+            "type": "string",
+            "const": "Precondition Failed"
+          },
+          "status": {
+            "type": "number",
+            "const": 412
+          },
+          "code": {
+            "type": "string",
+            "const": "PRECONDITION_FAILED"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "instance": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "Problem413": {
+        "type": "object",
+        "required": ["type", "title", "status", "code", "requestId", "instance"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "about:blank"
+          },
+          "title": {
+            "type": "string",
+            "const": "Content Too Large"
+          },
+          "status": {
+            "type": "number",
+            "const": 413
+          },
+          "code": {
+            "type": "string",
+            "const": "PAYLOAD_TOO_LARGE"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "instance": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "Problem422": {
+        "type": "object",
+        "required": ["type", "title", "status", "code", "requestId", "instance"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "about:blank"
+          },
+          "title": {
+            "type": "string",
+            "const": "Unprocessable Content"
+          },
+          "status": {
+            "type": "number",
+            "const": 422
+          },
+          "code": {
+            "type": "string",
+            "const": "VALIDATION_FAILED"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "instance": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "Problem428": {
+        "type": "object",
+        "required": ["type", "title", "status", "code", "requestId", "instance"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "about:blank"
+          },
+          "title": {
+            "type": "string",
+            "const": "Precondition Required"
+          },
+          "status": {
+            "type": "number",
+            "const": 428
+          },
+          "code": {
+            "type": "string",
+            "const": "PRECONDITION_REQUIRED"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "instance": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "Problem429": {
+        "type": "object",
+        "required": ["type", "title", "status", "code", "requestId", "instance"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "about:blank"
+          },
+          "title": {
+            "type": "string",
+            "const": "Too Many Requests"
+          },
+          "status": {
+            "type": "number",
+            "const": 429
+          },
+          "code": {
+            "type": "string",
+            "const": "RATE_LIMITED"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "instance": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "Problem499": {
+        "type": "object",
+        "required": ["type", "title", "status", "code", "requestId", "instance"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "about:blank"
+          },
+          "title": {
+            "type": "string",
+            "const": "Client Closed Request"
+          },
+          "status": {
+            "type": "number",
+            "const": 499
+          },
+          "code": {
+            "type": "string",
+            "const": "REQUEST_CANCELLED"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "instance": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "Problem500": {
+        "type": "object",
+        "required": ["type", "title", "status", "code", "requestId", "instance"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "about:blank"
+          },
+          "title": {
+            "type": "string",
+            "const": "Internal Server Error"
+          },
+          "status": {
+            "type": "number",
+            "const": 500
+          },
+          "code": {
+            "type": "string",
+            "const": "INTERNAL_ERROR"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "instance": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "Problem503": {
+        "type": "object",
+        "required": ["type", "title", "status", "code", "requestId", "instance"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "about:blank"
+          },
+          "title": {
+            "type": "string",
+            "const": "Service Unavailable"
+          },
+          "status": {
+            "type": "number",
+            "const": 503
+          },
+          "code": {
+            "type": "string",
+            "const": "UNAVAILABLE"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "instance": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "Problem504": {
+        "type": "object",
+        "required": ["type", "title", "status", "code", "requestId", "instance"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "about:blank"
+          },
+          "title": {
+            "type": "string",
+            "const": "Gateway Timeout"
+          },
+          "status": {
+            "type": "number",
+            "const": 504
+          },
+          "code": {
+            "type": "string",
+            "const": "TIMEOUT"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "instance": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      }
+    }
+  }
+}

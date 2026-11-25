@@ -26,23 +26,28 @@
     "lint:fix": "oxlint --fix --deny-warnings",
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.tools.json",
     "check": "bun run fmt:check && bun run lint && bun run typecheck",
-    "test": "bun run build && bun test",
-    "test:watch": "bun test --watch",
-    "check:ci": "bun run audit && bun run check && bun run test",
-    "prepare": "husky"
+    "test": "bun run build && bun test --tsconfig-override ./tsconfig.tools.json",
+    "test:watch": "bun test --watch --tsconfig-override ./tsconfig.tools.json",
+    "check:ci": "bun run audit && bun run check && bun run contracts:check && bun run test",
+    "prepare": "husky",
+    "contracts:update": "bun --no-env-file --tsconfig-override ./tsconfig.tools.json scripts/contracts/cli.ts update",
+    "contracts:generate": "bun --no-env-file --tsconfig-override ./tsconfig.tools.json scripts/contracts/cli.ts generate",
+    "contracts:check": "bun --no-env-file --tsconfig-override ./tsconfig.tools.json scripts/contracts/cli.ts check"
   },
   "dependencies": {
     "openapi-fetch": "0.17.0"
   },
   "devDependencies": {
     "@types/bun": "1.4.4",
+    "@types/js-yaml": "4.0.9",
     "husky": "9.1.7",
+    "json-schema-to-ts": "3.1.1",
     "openapi-typescript": "7.13.0",
     "oxfmt": "0.79.0",
     "oxlint": "1.93.0",
     "publint": "0.3.25",
     "tsdown": "0.23.7",
-    "typescript": "7.0.2"
+    "typescript": "5.9.3"
   },
   "packageManager": "bun@1.4.4"
 }

@@ -2,7 +2,13 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "types": ["bun"],
-    "isolatedDeclarations": false
+    "isolatedDeclarations": false,
+    "paths": {
+      "@shared/*": ["./src/shared/*"],
+      "@features/*": ["./src/features/*"],
+      "@sdk": ["./src/index.ts"],
+      "@contracts/*": ["./scripts/contracts/*"]
+    }
   },
   "include": ["tsdown.config.ts", "test/**/*.ts", "scripts/**/*.ts"]
 }

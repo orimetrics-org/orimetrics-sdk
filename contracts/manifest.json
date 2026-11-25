@@ -1,0 +1,18 @@
+{
+  "formatVersion": 1,
+  "source": {
+    "packageName": "@orimetrics/api-contract",
+    "version": "1.0.59",
+    "openapiSha256": "8e5ab6c41bd444d0662fb1640971faa9db62c05f88fc30d0461a1a5cb48e2b04"
+  },
+  "policySha256": "59cc79300260e352095773dbf2e5e8c050bf54e0b83d6aea90d1541cb84a9050",
+  "generators": {
+    "openapi-typescript": "7.13.0",
+    "oxfmt": "0.79.0",
+    "typescript": "5.9.3"
+  },
+  "sha256": {
+    "openapi.json": "02b86ada23d8cf5d5505a6e7b731c3ad76c79b5283ae7d823399e2dce26c727b",
+    "schema.ts": "1a00d6dfa5d1a5f43009f5896ef2e5ecaaf772020e7033b18c3ca69e5c13fba7"
+  }
+}

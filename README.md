@@ -1,6 +1,6 @@
 # Orimetrics SDK
 
-Framework-independent TypeScript SDK foundations for Orimetrics public APIs.
+Framework-independent TypeScript SDK for Orimetrics public APIs, under development.
 The intended scope is public vehicle discovery, inquiries, and appraisal information submitted into
 Orimetrics ERP. Appraisals do not calculate a valuation. React helpers will be optional and separate.
 
@@ -36,8 +36,8 @@ remain mandatory and separate from emission.
 
 This is a development foundation, not a working API client. The only public export is the
 `OrimetricsOptions` configuration type (`baseUrl`, `organizationSlug`, optional custom `fetch`).
-There are no network calls, fake endpoint methods, or hardcoded deployment URLs. `openapi-fetch` and
-`openapi-typescript` are installed for the next implementation step.
+There are no network calls, fake endpoint methods, or hardcoded deployment URLs. The public OpenAPI snapshot and generated transport types are now pinned and verified in CI.
+`openapi-fetch` is installed for the next client/transport implementation step.
 
 The package is intentionally marked `private: true` until its API and release policy are ready.
 Builds produce `dist/index.js` and `dist/index.d.ts`; package exports expose only the deliberate root
@@ -55,12 +55,20 @@ Read [src/README.md](src/README.md) for module boundaries and [AGENTS.md](AGENTS
 Repository skills under `.agents/skills/` encode clean-code and personal style conventions, adapted
 from Orimetrics Engine without backend-specific rules.
 
-Before endpoint implementation, introduce an explicitly approved public OpenAPI artifact. The sibling
-Engine repository's `contracts/openapi.json` is a development reference, not a runtime dependency.
-Select only supported public operations and their reachable schemas, record the source contract version,
-and commit the public artifact plus reproducible generation and drift-check scripts. Never hand-edit
-generated transport types or import Engine's Elysia declarations into the published SDK.
+The public contract is selected from a verified Engine contract artifact through an explicit allowlist.
+Read [contracts/README.md](contracts/README.md) for provenance, operation scope, generation commands,
+workflow semantics and update review. Normal checks use the committed snapshot without a backend checkout.
+
+```sh
+bun run contracts:check
+bun run contracts:generate
+bun run contracts:update --source ../orimetrics-engine/contracts
+```
+
+Read [docs/public-api.md](docs/public-api.md) for the intended SDK interface and error conventions.
+The core SDK comes first; a minimalist demo website will follow the initial implementation steps,
+and optional React helpers come after the core is complete.
 
 Keep generated transport details internal behind Orimetrics functions. Implement authoritative domain
 rules on the server; share client serialization, cancellation, error handling and submission workflows.
-Add feature subpath exports and React helpers only when those modules exist.
+Add feature subpath exports only when those modules exist.

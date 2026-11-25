@@ -1,18 +1,19 @@
 # Source ownership
 
-The initial source tree contains only implemented foundation types:
+The source tree contains configuration and generated public transport types:
 
 ```text
 src/
   index.ts                       Deliberate consumer exports
   shared/
     configuration/options.ts     Public client configuration type
+    api/generated/schema.ts      Generated transport types; never edit manually
 ```
 
 Add `src/features/<feature>/` when implementing vehicles, inquiries or appraisals. Each feature owns
 its transport mapping, workflow functions and domain types. Expose its supported integration surface
-through `index.<feature>.ts`; private implementation files stay private. Add generated public transport
-types under `src/shared/api/generated/` when contract generation is implemented.
+through `index.<feature>.ts`; private implementation files stay private. Generated public transport types live under `src/shared/api/generated/`; regenerate them with
+`bun run contracts:generate`. See `contracts/README.md` for snapshot updates and verification.
 Do not create empty folders or generic repositories/services/hooks layers in advance.
 
 ## Dependency direction
@@ -36,7 +37,8 @@ variables, access browser storage, or register global listeners at import time.
 - `@features/*` → `src/features/*`.
 
 Use aliases for source imports. Keep their definitions in `tsconfig.json`; Bun and tsdown consume that
-configuration. Internal modules import defining files, not broad shared barrels. Export public types
+configuration. Tooling uses `tsconfig.tools.json`, which mirrors these aliases and adds `@contracts/*`
+for generation scripts only; keep its source mappings synchronized when adding aliases. Internal modules import defining files, not broad shared barrels. Export public types
 explicitly with `export type`. Public functions need explicit signatures because declaration emission
 uses `isolatedDeclarations`. Avoid exporting third-party transport types as part of our stable API.
 Package subpath exports belong in `package.json` and must have a corresponding build entry and consumer test.
