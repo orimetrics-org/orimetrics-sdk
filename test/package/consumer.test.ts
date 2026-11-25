@@ -43,7 +43,15 @@ beforeAll(async () => {
     ],
     repositoryRoot,
   );
-  await writeFile(join(consumerDirectory, "package.json"), '{"type":"module","private":true}');
+  await writeFile(
+    join(consumerDirectory, "package.json"),
+    JSON.stringify({
+      type: "module",
+      private: true,
+      dependencies: { "@orimetrics/sdk": `file:./${archive}` },
+    }),
+  );
+  runCommand([process.execPath, "install", "--offline", "--ignore-scripts"], consumerDirectory);
 });
 
 afterAll(async () => {
@@ -55,7 +63,11 @@ afterAll(async () => {
 test("ships only the declared distribution and package documentation", async () => {
   const files = await readdir(installedPackage);
 
-  expect(files.sort()).toEqual(["README.md", "dist", "package.json"]);
+  expect(files.filter((file) => file !== ".bun-tag").sort()).toEqual([
+    "README.md",
+    "dist",
+    "package.json",
+  ]);
   expect(await Bun.file(join(installedPackage, "dist/index.js")).exists()).toBe(true);
   expect(await Bun.file(join(installedPackage, "dist/index.d.ts")).exists()).toBe(true);
 });
@@ -63,7 +75,8 @@ test("ships only the declared distribution and package documentation", async () 
 test("declarations resolve without repository aliases or Bun ambient types", async () => {
   await writeFile(
     join(consumerDirectory, "consumer.ts"),
-    `import type { OrimetricsOptions } from "@orimetrics/sdk";
+    `import type { OrimetricsOptions, OrganizationProfile } from "@orimetrics/sdk";
+import { createOrimetricsClient, OrimetricsError } from "@orimetrics/sdk";
 const options: OrimetricsOptions = {
   baseUrl: "https://api.example.test",
   organizationSlug: "example",
@@ -73,7 +86,12 @@ const options: OrimetricsOptions = {
 const incomplete: OrimetricsOptions = { baseUrl: "https://api.example.test" };
 // @ts-expect-error a transport must be a fetch-compatible function.
 const invalidFetch: OrimetricsOptions = { ...options, fetch: "invalid" };
-void [options, incomplete, invalidFetch];
+const client = createOrimetricsClient(options);
+const profile: Promise<OrganizationProfile> = client.organization.getProfile({ timeoutMs: 5000 });
+// @ts-expect-error There is no arbitrary-route API.
+client.GET("/private");
+const error = new OrimetricsError({ kind: "network" });
+void [options, incomplete, invalidFetch, profile, error];
 `,
   );
   await writeFile(
@@ -101,7 +119,20 @@ void [options, incomplete, invalidFetch];
 test("ESM entry bundles for a browser without source aliases", async () => {
   const entry = join(consumerDirectory, "consumer.js");
 
-  await writeFile(entry, 'import * as sdk from "@orimetrics/sdk"; console.log(sdk);');
+  await writeFile(
+    entry,
+    `import { createOrimetricsClient, OrimetricsError } from "@orimetrics/sdk";
+let calls = 0;
+const client = createOrimetricsClient({ baseUrl: "https://example.test", organizationSlug: "demo", fetch: async (request, init) => {
+  calls++;
+  if (init.credentials !== "omit") throw new Error("Credentials leaked");
+  return new Response("unavailable", { status: 503 });
+} });
+if (calls !== 0) throw new Error("Construction performed a request");
+try { await client.organization.getProfile(); throw new Error("Expected failure"); }
+catch (error) { if (!(error instanceof OrimetricsError) || error.kind !== "http" || error.status !== 503) throw error; }
+if (calls !== 1) throw new Error("Unexpected retry");`,
+  );
 
   const result = await Bun.build({ entrypoints: [entry], target: "browser", format: "esm" });
 

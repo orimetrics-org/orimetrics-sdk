@@ -1,13 +1,16 @@
 # Source ownership
 
-The source tree contains configuration and generated public transport types:
+The source tree separates client composition, feature operations and transport infrastructure:
 
 ```text
 src/
   index.ts                       Deliberate consumer exports
+  client/create-client.ts        Inert client factory and feature composition
+  features/organization/         Public profile API, types and decoder
   shared/
     configuration/options.ts     Public client configuration type
     api/generated/schema.ts      Generated transport types; never edit manually
+    api/                         Deadlines, errors and scoped openapi-fetch transport
 ```
 
 Add `src/features/<feature>/` when implementing vehicles, inquiries or appraisals. Each feature owns
@@ -18,9 +21,9 @@ Do not create empty folders or generic repositories/services/hooks layers in adv
 
 ## Dependency direction
 
-- `src/index.ts` composes deliberate public exports.
+- `src/index.ts` exposes deliberate public exports; `client` composes features and transport.
 - Features depend on shared infrastructure and another feature's explicit public surface when needed.
-- Shared modules never depend on features or the root SDK entry point.
+- Shared modules never depend on features, client composition or the root SDK entry point.
 - Feature internals never import their own barrel or the root SDK entry point.
 - Cross-feature imports use `index.<feature>`; when adding a feature, add ownership-specific Oxlint
   restrictions following the existing shared/feature overrides. Generic aliases alone do not enforce
@@ -32,6 +35,7 @@ variables, access browser storage, or register global listeners at import time.
 
 ## Aliases and exports
 
+- `@client/*` → `src/client/*`, used by the root entry point and composition internals.
 - `@sdk` → `src/index.ts`, for consumer-facing source tests only.
 - `@shared/*` → `src/shared/*`.
 - `@features/*` → `src/features/*`.
@@ -59,3 +63,5 @@ an owner's defining module. Test behavior and failure boundaries rather than dup
 Use injected fetch functions for transport tests; ordinary tests need no live server or credentials.
 Keep the packed-package smoke test working so declarations and browser output are verified independently
 of local aliases and ambient developer types. Extend the fixture when public runtime operations arrive.
+
+See [transport behavior](../docs/transport.md) before adding a feature operation or response decoder.

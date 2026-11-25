@@ -57,7 +57,7 @@
                 "message": "The core SDK uses browser APIs and stays framework-independent."
               },
               {
-                "regex": "^(@features(/|$)|@sdk$)",
+                "regex": "^(@features(/|$)|@client(/|$)|@sdk$)",
                 "message": "Shared infrastructure must not import features or the SDK entry point."
               }
             ]
@@ -81,8 +81,64 @@
                 "message": "The core SDK uses browser APIs and stays framework-independent."
               },
               {
-                "regex": "^@sdk$",
+                "regex": "^(@client(/|$)|@sdk$)",
                 "message": "Features must not import the SDK composition entry point."
+              },
+              {
+                "regex": "^@features/[^/]+/(?!index\\.[^/]+$)",
+                "message": "Use another feature through its explicit index.<feature> entry point."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/client/**/*.ts"],
+      "rules": {
+        "eslint/no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "^\\.{1,2}/",
+                "message": "Use the owning @shared/* or @features/* source alias."
+              },
+              {
+                "regex": "^(node:|bun(:|$)|react($|/)|react-dom($|/))",
+                "message": "The core SDK uses browser APIs and stays framework-independent."
+              },
+              {
+                "regex": "^@features/[^/]+/(?!index\\.[^/]+$)",
+                "message": "Client composition uses explicit feature entry points."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/features/organization/**/*.ts"],
+      "rules": {
+        "eslint/no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "^\\.{1,2}/",
+                "message": "Use the owning @shared/* or @features/* source alias."
+              },
+              {
+                "regex": "^(node:|bun(:|$)|react($|/)|react-dom($|/))",
+                "message": "The core SDK uses browser APIs and stays framework-independent."
+              },
+              {
+                "regex": "^(@client(/|$)|@sdk$)",
+                "message": "Features must not import the SDK composition entry point."
+              },
+              {
+                "regex": "^@features/(?!organization/)[^/]+/(?!index\\.[^/]+$)",
+                "message": "Use another feature through its explicit index.<feature> entry point."
               }
             ]
           }

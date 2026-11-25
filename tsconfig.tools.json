@@ -7,7 +7,8 @@
       "@shared/*": ["./src/shared/*"],
       "@features/*": ["./src/features/*"],
       "@sdk": ["./src/index.ts"],
-      "@contracts/*": ["./scripts/contracts/*"]
+      "@contracts/*": ["./scripts/contracts/*"],
+      "@client/*": ["./src/client/*"]
     }
   },
   "include": ["tsdown.config.ts", "test/**/*.ts", "scripts/**/*.ts"]

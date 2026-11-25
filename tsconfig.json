@@ -18,7 +18,8 @@
     "paths": {
       "@shared/*": ["./src/shared/*"],
       "@features/*": ["./src/features/*"],
-      "@sdk": ["./src/index.ts"]
+      "@sdk": ["./src/index.ts"],
+      "@client/*": ["./src/client/*"]
     },
     "isolatedDeclarations": true,
     "declaration": true

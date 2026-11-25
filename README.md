@@ -34,10 +34,23 @@ remain mandatory and separate from emission.
 
 ## Current status
 
-This is a development foundation, not a working API client. The only public export is the
-`OrimetricsOptions` configuration type (`baseUrl`, `organizationSlug`, optional custom `fetch`).
-There are no network calls, fake endpoint methods, or hardcoded deployment URLs. The public OpenAPI snapshot and generated transport types are now pinned and verified in CI.
-`openapi-fetch` is installed for the next client/transport implementation step.
+Client and transport are implemented, with `organization.getProfile()` as the first real operation.
+The public OpenAPI snapshot and generated transport types are pinned and verified in CI. Vehicle,
+inquiry and appraisal APIs are next; React helpers remain deferred until the core is complete.
+
+```ts
+import { createOrimetricsClient } from "@orimetrics/sdk";
+
+const client = createOrimetricsClient({
+  baseUrl: "https://your-api.example",
+  organizationSlug: "your-company",
+});
+
+const profile = await client.organization.getProfile({ timeoutMs: 5_000 });
+```
+
+See [client and transport](docs/transport.md) for configuration, cancellation, errors, credential rules,
+custom fetch adapters and the implemented API. Construction performs no network requests.
 
 The package is intentionally marked `private: true` until its API and release policy are ready.
 Builds produce `dist/index.js` and `dist/index.d.ts`; package exports expose only the deliberate root
@@ -47,7 +60,8 @@ to remain free of import-time side effects.
 The package test packs and extracts the artifact into a temporary consumer outside this repository,
 checks browser bundling and strict TypeScript consumption without path aliases or Bun types, and
 checks that development files are excluded. It runs locally without publishing or contacting the API.
-The smoke test uses the local installed compiler; Linux/macOS `tar` must be available (as in CI).
+The smoke test installs the packed package and runtime dependencies from Bun’s local cache with
+`--offline --ignore-scripts`, then uses the local installed compiler; Linux/macOS `tar` must be available (as in CI).
 
 ## Architecture and generation
 

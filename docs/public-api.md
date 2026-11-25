@@ -3,7 +3,8 @@
 The core SDK comes first. After the first implementation steps, add a minimalist demo website that
 can become a skeleton for client websites. React helpers are deferred until the core is complete.
 
-The following names are the intended interface for upcoming milestones, not existing runtime exports.
+Client creation and `organization.getProfile()` are implemented; see [transport.md](transport.md).
+The remaining feature names below are the intended interface for upcoming milestones.
 Consumer examples should validate this interface before a stable release.
 
 ## Client and ownership
@@ -52,6 +53,6 @@ operations omit ERP cookies and credentials. Core code has no persistent cache o
 
 ## Next milestone
 
-Implement client configuration and the transport/error boundary against this pinned public contract,
-with injected-fetch tests and consumer examples. Endpoint wrappers, the demo website, and optional
-React helpers are separate milestones.
+Implement vehicle browsing and the remaining public profile/branding operations against this transport.
+Then create the minimalist demo website using the packed SDK. Inquiry/appraisal workflows and optional
+React helpers remain later milestones.
