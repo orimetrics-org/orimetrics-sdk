@@ -70,7 +70,8 @@ phone/email validity, customer matching and admission remain server responsibili
 
 Submission performs structural checks before I/O. `validateInquirySubmission(submission, form)` adds
 checks against current name/message/contact limits, enabled status and privacy version. It performs
-no I/O and mutates neither argument. Invoke it explicitly with the current form; `submit` does not
+no I/O and mutates neither argument. Invoke it with the current form before a new submission;
+recovery of an already attempted operation is a separate path described below. `submit` does not
 fetch/cache configuration. Validation failures throw TypeError with field names, not entered values.
 A malformed form response throws a protocol OrimetricsError. These checks do not guarantee acceptance.
 
@@ -102,3 +103,63 @@ Content-Type and Idempotency-Key, with diagnostic response headers exposed as ne
 The core does not load Turnstile scripts or render forms. Those concerns belong to the website or
 future optional framework helpers. The API remains authoritative for notice changes, visibility,
 rate limits and validation at submission time.
+
+## State transitions and ownership
+
+The inquiry workflow has six independent state dimensions. The SDK deliberately does not combine them
+into a mutable session or infer one from another:
+
+- **Form discovery:** the website moves from not loaded to loading, then enabled, disabled, unavailable
+  (404), or failed. InquiryForm explicitly represents enabled versus disabled; failures reject the
+  promise and are not silently converted into disabled. Each getForm fetches a new snapshot. The
+  website should ignore stale responses when the selected listing changes, including stale error and
+  loading updates. Enabled configuration and listing.interestRequestsEnabled do not guarantee admission.
+- **Draft validity:** editing can alternate between invalid and locally valid. Validation is pure and
+  does not modify fields, remember readiness or trigger a later request. Fixing an invalid field requires
+  another explicit call. Contact structure and preferred-channel consistency are local checks; the
+  server owns normalization and final validity. Keep field errors separate from network/admission errors.
+- **Privacy acknowledgment:** unacknowledged → explicitly acknowledged for the notice shown to the
+  visitor. A different notice version invalidates readiness for a new submission until the visitor reviews
+  and acknowledges it. Never copy a new version into an old draft while silently preserving consent.
+  The true literal in InquirySubmission represents the caller's assertion of that action; the SDK cannot
+  perform or verify the UI interaction. Validation never supplies consent on the caller's behalf.
+- **Challenge readiness:** absent, pending, available, expired or failed belong to the website's
+  Turnstile integration. The SDK only checks token structure; a nonempty token is not proof of successful
+  verification. Widget callbacks own refresh/expiry. A refreshed token may accompany a retry with the
+  original business input and key. Do not retain tokens in logs or persistent state by default.
+- **Logical submission:** a prepared operation is identified by client organization, listing, explicit
+  idempotency key and business payload. The website owns its draft/pending/accepted/rejected/uncertain
+  presentation. Transport owns individual attempt settlement. Local validation failure or a signal
+  already aborted before dispatch sends nothing; cancellation after dispatch, timeout, network failure
+  or a malformed success response can leave server acceptance unknown. An HTTP error describes that
+  attempt; it is not a general proof that an earlier uncertain attempt never committed. Acceptance is
+  only the acknowledgment returned by submit, not a reservation, message delivery or private staff status.
+- **Recovery and rate limiting:** retry is an explicit new attempt of the same logical operation, not
+  a new inquiry. Keep the original listing, key and business payload; only the challenge token may change.
+  Respect Retry-After when provided, but expiration of a countdown does not itself authorize acceptance.
+  Do not rotate keys in response to errors, deduplicate customers locally or automatically resubmit.
+  A deliberate new inquiry gets a new key and current consent. Disable duplicate clicks per form while
+  pending; separate forms sharing a client must not share a global pending flag or cancel each other.
+
+### New submission versus recovery
+
+Current-form validation is a readiness check for **new** inquiries. It must not become a mandatory
+cached-form gate inside submit. For example, the server may accept an inquiry but the response may be
+lost; a later form read can show a new notice or disabled admission. The caller can still explicitly
+retry the original operation unchanged (optionally with a refreshed token), allowing the server to
+return a previously recorded acknowledgment. The SDK neither promises that a replay will succeed nor
+uses an old form to authorize a new inquiry. If no prior acceptance exists, current server admission
+rules still apply. Resolve uncertainty before silently replacing the operation with edited input.
+
+Retain a separate snapshot of the attempted business payload and key while the visitor edits another
+draft. submit serializes each request independently, but it does not retain a retry snapshot for you.
+Do not reconstruct a retry from current form fields. Likewise, a late result from an old listing must
+not update the new listing's UI; retain enough per-operation state to explain or recover the old result.
+Cancellation does not revoke consent, undo acceptance or clear the operation identity automatically.
+
+These boundaries already hold in the implementation. Adding automatic form refresh, client-side
+idempotency state or a combined state-machine dependency would risk blocking valid recovery or creating
+duplicate submissions. The public API and runtime remain unchanged. Tests in
+`test/inquiries/lifecycle.test.ts` protect recovery after form changes, consent preservation, recovery
+from local validation errors, input snapshots and independent concurrent attempts. Server replay behavior
+is modeled by mocks in these SDK tests; database idempotency and real admission remain backend concerns.
