@@ -131,3 +131,69 @@ API CORS must allow the website origin, Content-Type, Idempotency-Key and the co
 header. Storage CORS must allow PUT, Content-Type and If-None-Match from the website. Storage, image
 processing and Turnstile must be configured in the deployment. Unit/package tests mock these services;
 real CORS, signed uploads and image processing require deployment verification.
+
+## State transitions and ownership
+
+Appraisals contain eight independent state dimensions. Keep their owners and recovery paths explicit:
+
+- **Admission and photo policy (server):** a form is enabled or disabled; an enabled form separately
+  enables or disables photos. Unknown/archived dealerships and transport failures reject, rather than
+  becoming disabled forms. Enabled admission with disabled photos still permits text-only requests.
+  Privacy fields remain nullable; new-submission validation requires a configured notice. The website
+  owns form-loading/error presentation and ignores stale results after a dealership change.
+- **Draft validity (SDK + website):** editing alternates between invalid and locally valid input.
+  Odometer information is either unknown (both value and unit omitted/null) or known (both present).
+  Expected price remains an optional seller-provided string, never a valuation state. Validation does
+  not normalize fields, fill missing values or retain a readiness flag. The server remains authoritative.
+- **Consent and challenge (visitor + website):** an acknowledgment belongs to the notice presented;
+  new notice versions require review before a new submission. Turnstile readiness/expiry/refresh is a
+  separate widget lifecycle. A token passing structural checks is not proof of verification. The SDK
+  never generates consent or supplies refreshed tokens automatically.
+- **Logical submission (website + server):** prepared → pending attempt → acknowledged, rejected or
+  uncertain. Organization, dealership, key and business payload identify the original operation.
+  Snapshot these before editing another draft. Failure before dispatch sends nothing; interruption
+  after dispatch does not prove rejection. An accepted receipt remains accepted regardless of later
+  per-photo outcomes. There is no public appraisal-status transition or valuation to infer from it.
+- **Photo reservations (server snapshots):** `upload_available` carries signed instructions;
+  `temporarily_unavailable` has no usable instructions and may recover on explicit submission replay;
+  `upload_closed` has no public upload action; `completion_accepted` needs no additional upload or
+  completion from that receipt. Replays can return different states for the same receipt/photo slug.
+  Do not impose a monotonic progression on these snapshots or treat them as private processing status.
+  Helpers do not mutate a receipt: retain newly returned snapshots explicitly and correlate photos by
+  slug once known, preserving each photo's original file/metadata association.
+- **Storage PUT attempt (transport):** validate instructions/file/expiry → PUT pending → known HTTP
+  result or uncertain transport outcome. A successful response means the storage PUT was acknowledged,
+  not that Orimetrics queued or processed the photo. Unused response-body cancellation is best-effort
+  cleanup; it cannot postpone settlement or replace a known status with a timeout. Raw storage bodies
+  are never used for error details. Failed or uncertain PUTs never auto-complete or resubmit the appraisal.
+- **Completion attempt (API):** explicit POST pending → acknowledgment, rejection or uncertain
+  outcome. Acknowledgment means queueing acceptance only. For a lost acknowledgment, retry the same
+  scoped completion with its original token within its window. Do not require a fresh successful PUT
+  before retrying completion: the prior write may already exist. A 412 from a write-once retry is not a
+  fresh upload success or proof of final processing; the server's completion checks remain authoritative.
+- **Expiry and processing (clock + server):** PUT expiry and completion expiry are separate fields;
+  uploadPhoto checks expiresAt, completePhoto checks completionExpiresAt. Receipt state alone does not
+  override those clocks. Replaying submission never renews the original window. Server admission can
+  also close a completion path before expiry. Image processing has private queued/processing/outcome
+  states; the public SDK neither polls them nor predicts them from completion acknowledgment.
+
+### Recovery does not start another appraisal
+
+Use current-form validation before a **new** submission. It must not become a cached admission gate
+inside submit: the response to an accepted submission may be lost, followed by disabled admission or a
+new notice version. An explicit replay of the original key, dealership and payload (with an optional
+fresh challenge token) lets the server recover a stored receipt. Without a stored acceptance, current
+admission still applies. Do not rewrite consent, remove reserved photo metadata or rotate the key just
+to recover a receipt. Changed business input is not an identical retry.
+
+Track the accepted receipt independently from each photo's local uploading, uploaded, completing,
+acknowledged, failed or uncertain presentation. Multiple photos can be in different states concurrently;
+one failed photo must not turn the whole appraisal into "submission failed" or discard another photo's
+acknowledgment. Caller cancellation affects that attempt only, not prior acceptance or another photo.
+The website owns duplicate-click prevention, per-photo progress, retry controls and any concurrency limit.
+The core keeps operations independent; no automatic queue or mutable workflow controller is introduced.
+
+Regression tests in `test/appraisals/lifecycle.test.ts` cover cleanup-independent settlement, accepted
+receipts surviving photo failures, explicit completion recovery, changing receipt snapshots, replay after
+admission closure and separate expiry checks. Server transitions are modeled with mocks; live storage
+signatures, database replay, CORS and private image processing still require deployment verification.

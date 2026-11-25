@@ -104,8 +104,10 @@ export const uploadPhoto = async (
         throw new OrimetricsError({ kind: "network" });
       }
 
-      // Storage error bodies can contain signed URL data. Never parse or expose them.
-      await response.body?.cancel().catch(() => undefined);
+      // Status settles the PUT. Body disposal is best-effort cleanup, not another
+      // upload phase: an uncooperative stream must not turn a known result into timeout.
+      // Never parse storage error bodies, which may contain signed URL data.
+      void response.body?.cancel().catch(() => undefined);
 
       if (!response.ok) {
         throw new OrimetricsError({ kind: "http", status: response.status });
